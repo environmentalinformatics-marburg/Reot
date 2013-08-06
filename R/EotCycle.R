@@ -15,7 +15,7 @@ EotCycle <- function(pred,
   lib <- c("raster", "doParallel", "Rcpp")
   sapply(lib, function(...) stopifnot(require(..., character.only = T)))
   
-  sourceCpp("src/EotCppFun.cpp")
+  #sourceCpp("src/EotCppFun.cpp")
   
   
   ### Identification of the most explanatory pred pixel
