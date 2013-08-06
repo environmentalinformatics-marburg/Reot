@@ -11,7 +11,7 @@ EotControl <- function(pred,
   ### Environmental settings
   
   # Required functions
-  source("src/EotCycle.R")
+  # source("src/EotCycle.R")
   
   # Duplicate predictor set in case predictor and response are identical
   if (is.null(resp)) {
