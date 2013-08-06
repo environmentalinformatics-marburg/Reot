@@ -1,0 +1,2 @@
+useDynLib(Reot)
+exportPattern("^[[:alpha:]]+")
