@@ -32,7 +32,7 @@ plotEot <- function(eot.outlist,
   vp1 <- viewport(x = 0, y = 0, 
                   height = 1, width = 0.5,
                   just = c("left", "bottom"),
-                  name = "lower left")
+                  name = "left")
   
   ### enter vp1 
   pushViewport(vp1)
@@ -47,7 +47,7 @@ plotEot <- function(eot.outlist,
   vp2 <- viewport(x = 1, y = 0, 
                   height = 1, width = 0.5,
                   just = c("right", "bottom"),
-                  name = "lower right")
+                  name = "right")
   
   ### enter vp2
   pushViewport(vp2)
