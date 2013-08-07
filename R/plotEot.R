@@ -2,7 +2,7 @@ plotEot <- function(eot.outlist,
                     eot = 1,
                     pred.prm = "rsq.predictor",
                     resp.prm = "rsq.response",
-                    clr = colorRampPalette(brewer.pal(9, "YlGnBu"))(1000))
+                    clr = colorRampPalette(brewer.pal(9, "Spectral"))(1000))
 {
   
   xy <- xyFromCell(eot.outlist[[1]]$rsq.predictor[[eot]], 
