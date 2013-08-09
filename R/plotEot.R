@@ -4,9 +4,13 @@ plotEot <- function(eot.outlist,
                     resp.prm = "rsq.response",
                     show.eot.loc = FALSE,
                     add.map = TRUE,
+                    times.vec = NULL,
                     clr = colorRampPalette(
                       rev(brewer.pal(9, "Spectral")))(1000))
 {
+  
+  if (is.null(times.vec)) 
+    times.vec <- seq(nlayers(eot.outlist[[1]]$resid.response[[1]]))
   
   xy <- xyFromCell(eot.outlist[[1]]$rsq.predictor[[eot]], 
                    cell = eot.outlist[[1]]$max.xy[eot])
@@ -42,8 +46,7 @@ plotEot <- function(eot.outlist,
                      }
                    }) 
   
-  eot.ts <- xyplot(eot.outlist[[1]]$eot.series[[eot]][1, ] ~ 
-                     seq(eot.outlist[[1]]$eot.series[[eot]][1, ]),
+  eot.ts <- xyplot(eot.outlist[[1]]$eot.series[[eot]][1, ] ~ times.vec,
                    type = "b", pch = 20, col = "black", 
                    ylab = "", xlab = "",
                    scales = list(tck = c(0.5, 0), x = list(axs = "i")), 
