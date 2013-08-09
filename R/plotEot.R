@@ -10,7 +10,7 @@ plotEot <- function(eot.obj,
 {
   
   if (is.null(times.vec)) 
-    times.vec <- seq(nlayers(eot.obj[[1]][[1]]resid.response))
+    times.vec <- seq(nlayers(eot.obj[[1]][[1]]$resid.response))
   
   xy <- xyFromCell(eot.obj[[1]][[eot]]$rsq.predictor, 
                    cell = eot.obj[[1]][[eot]]$max.xy)
