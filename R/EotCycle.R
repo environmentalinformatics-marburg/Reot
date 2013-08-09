@@ -76,7 +76,8 @@ EotCycle <- function(pred,
   # Residuals
   brck.resp.resids[] <- matrix(sapply(resp.lm.param.p, "[[", 4), 
                                ncol = nlayers(pred), byrow = TRUE)
-  
+  # EOT over time
+  eot.ts <- list(extract(pred, maxxy))
   
   ### Regression of most explanatory pred pixel with pred pixels
   
@@ -127,7 +128,7 @@ EotCycle <- function(pred,
     ### Output
     
     # Output returned by function
-    out <- list(sum.rsq = x,
+    out <- list(eot.series = eot.ts,
                 max.xy = maxxy,
                 r.predictor = rst.pred.r,
                 rsq.predictor = rst.pred.rsq,
@@ -160,7 +161,7 @@ EotCycle <- function(pred,
   } else {
         
     # Output returned by function
-    out <- list(sum.rsq = x,
+    out <- list(eot.series = eot.ts,
                 max.xy = maxxy,
                 r.response = rst.resp.r,
                 rsq.response = rst.resp.rsq,
