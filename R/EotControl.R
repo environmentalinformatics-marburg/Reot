@@ -46,24 +46,30 @@ EotControl <- function(pred,
                              } else {
                                NULL
                              })
+                
         # Use last entry of slot 'residuals' otherwise  
       } else if (z > 1) {
         tmp.pred.eot <- Eot(pred = pred[[i:(i+cycle.window-1)]], 
-                                 resp = if(!is.list(pred.eot$resid.response)) {
-                                   pred.eot$resid.response 
-                                 } else {
-                                   pred.eot$resid.response[[length(pred.eot$resid.response)]] 
-                                 }, 
-                                 resp.eq.pred = resp.eq.pred,
-                                 n = z, 
-                                 write.out = write.out,
-                                 path.out = path.out, 
-                                 names.out = if (!is.null(names.out) | write.out) {
-                                   names.out[ceiling(i/cycle.window)]
-                                 } else {
-                                   NULL
-                                 })
-        pred.eot <- mapply(FUN = append, pred.eot, tmp.pred.eot, SIMPLIFY = FALSE)
+                            resp = if (z == 2) {pred.eot$resid.response 
+                            } else {pred.eot[[z-1]]$resid.response}, 
+                            resp.eq.pred = resp.eq.pred,
+                            n = z, 
+                            write.out = write.out,
+                            path.out = path.out, 
+                            names.out = if (!is.null(names.out) | write.out) {
+                              names.out[ceiling(i/cycle.window)]
+                            } else {
+                              NULL
+                            })
+        
+        if (z == 2) {
+          pred.eot <- list(pred.eot, tmp.pred.eot)
+          names(pred.eot) <- c("EOT_1", paste("EOT", z, sep = "_"))
+        } else {
+          tmp.names <- names(pred.eot)
+          pred.eot <- append(pred.eot, list(tmp.pred.eot))
+          names(pred.eot) <- c(tmp.names, paste("EOT", z, sep = "_"))
+        }
       }
     }
     

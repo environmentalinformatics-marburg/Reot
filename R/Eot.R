@@ -77,7 +77,7 @@ Eot <- function(pred,
   brck.resp.resids[] <- matrix(sapply(resp.lm.param.p, "[[", 4), 
                                ncol = nlayers(pred), byrow = TRUE)
   # EOT over time
-  eot.ts <- list(extract(pred, maxxy))
+  eot.ts <- extract(pred, maxxy)
   
   ### Regression of most explanatory pred pixel with pred pixels
   
