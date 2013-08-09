@@ -10,10 +10,10 @@ plotEot <- function(eot.obj,
 {
   
   if (is.null(times.vec)) 
-    times.vec <- seq(nlayers(eot.obj[[1]]$resid.response[[1]]))
+    times.vec <- seq(nlayers(eot.obj[[1]][[1]]resid.response))
   
-  xy <- xyFromCell(eot.obj[[1]]$rsq.predictor[[eot]], 
-                   cell = eot.obj[[1]]$max.xy[eot])
+  xy <- xyFromCell(eot.obj[[1]][[eot]]$rsq.predictor, 
+                   cell = eot.obj[[1]][[eot]]$max.xy)
   
   eot.location.p <- xyplot(xy[1, 2] ~ xy[1, 1], cex = 2,
                            pch = 21, fill = "grey80", col = "black")
@@ -22,7 +22,7 @@ plotEot <- function(eot.obj,
     mm <- map("world", plot = F, fill = T, col = "grey70")
   }
   
-  pred.p <- spplot(eot.obj[[1]][[pred.prm]][[eot]], mm = mm,
+  pred.p <- spplot(eot.obj[[1]][[eot]][[pred.prm]], mm = mm,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
                    main = paste(pred.prm, "EOT", eot, sep = " "), 
@@ -34,7 +34,7 @@ plotEot <- function(eot.obj,
                      }
                      }) 
   
-  resp.p <- spplot(eot.obj[[1]][[resp.prm]][[eot]], mm = mm,
+  resp.p <- spplot(eot.obj[[1]][[eot]][[resp.prm]], mm = mm,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
                    main = paste(resp.prm, "EOT", eot, sep = " "), 
@@ -46,7 +46,7 @@ plotEot <- function(eot.obj,
                      }
                    }) 
   
-  eot.ts <- xyplot(eot.obj[[1]]$eot.series[[eot]][1, ] ~ times.vec,
+  eot.ts <- xyplot(eot.obj[[1]][[eot]]$eot.series[1, ] ~ times.vec,
                    type = "b", pch = 20, col = "black", 
                    ylab = "", xlab = "",
                    scales = list(tck = c(0.5, 0), x = list(axs = "i")), 
