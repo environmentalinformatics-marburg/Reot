@@ -1,12 +1,12 @@
-EotCycle <- function(pred, 
-                     resp, 
-                     resp.eq.pred = F,
-                     n = 1,
-                     write.out,
-                     path.out,
-                     names.out,
-                     n.cores = NULL,
-                     ...) {
+Eot <- function(pred, 
+                resp, 
+                resp.eq.pred = F,
+                n = 1,
+                write.out,
+                path.out,
+                names.out,
+                n.cores = NULL,
+                ...) {
   
   
   ### Environmental settings
