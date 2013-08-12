@@ -36,7 +36,8 @@ EotDenoise <- function(data,
     return(tmp.data)
   }))
 
-  data.tmp <- geoWeight(data.tmp)
+  # Check whether input is lat/lon and if then apply geographic weighting
+  if (isLonLat(data)) data.tmp <- geoWeight(data.tmp)
   
   # Deregister parallel backend
   stopCluster(clstr)
