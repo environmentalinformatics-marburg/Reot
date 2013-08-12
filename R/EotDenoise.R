@@ -36,9 +36,11 @@ EotDenoise <- function(data,
     return(tmp.data)
   }))
 
+  data.tmp <- geoWeight(data.tmp)
+  
   # Deregister parallel backend
   stopCluster(clstr)
 
   # Return denoised data set
-  return(data)
+  return(data.tmp)
 }
