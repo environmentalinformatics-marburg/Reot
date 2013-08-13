@@ -3,6 +3,7 @@ plotEot <- function(eot.obj,
                     pred.prm = "rsq.predictor",
                     resp.prm = "rsq.response",
                     show.eot.loc = FALSE,
+                    anomalies = TRUE,
                     add.map = TRUE,
                     times.vec = NULL,
                     clr = colorRampPalette(
@@ -101,7 +102,11 @@ plotEot <- function(eot.obj,
   pushViewport(vp3)
   
   ### plot another plot
-  print(eot.ts, newpage = FALSE)
+  if (!anomalies) print(eot.ts, newpage = FALSE) else
+    print(eot.ts + 
+            layer(panel.abline(h = 0), under = TRUE,
+                  col = "grey70"), 
+          newpage = FALSE)
   
   upViewport(0)
 }
