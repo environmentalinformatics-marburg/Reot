@@ -104,8 +104,8 @@ plotEot <- function(eot.obj,
   ### plot another plot
   if (!anomalies) print(eot.ts, newpage = FALSE) else
     print(eot.ts + 
-            layer(panel.abline(h = 0), under = TRUE,
-                  col = "grey70"), 
+            layer(panel.abline(h = 0, col = "grey40", lty = 3), 
+                  under = TRUE), 
           newpage = FALSE)
   
   upViewport(0)
