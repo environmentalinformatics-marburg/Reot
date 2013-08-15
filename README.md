@@ -8,7 +8,7 @@ for detailed descriptions of the methodolgy please have a look at:
 **Empirical Orthogonal Teleconnections**
 H. M. van den Dool, S. Saha, Å Johansson
 Journal of Climate, Volume 13, Issue 8 (April 2000) pp. 1421-1435
-doi: [http://dx.doi.org/10.1175/1520-0442(2000)013<1421:EOT>2.0.CO;2](http://dx.doi.org/10.1175/1520-0442(2000)013<1421:EOT>2.0.CO;2)
+URL [http://journals.ametsoc.org/doi/abs/10.1175/1520-0442%282000%29013%3C1421%3AEOT%3E2.0.CO%3B2](http://journals.ametsoc.org/doi/abs/10.1175/1520-0442%282000%29013%3C1421%3AEOT%3E2.0.CO%3B2)
 
 **Empirical methods in short-term climate prediction**
 H. M. van den Dool,
