@@ -4,7 +4,8 @@ Eot <- function(pred,
                 write.out = F,
                 path.out = ".", 
                 names.out = NULL,
-                cycle.window = NULL, 
+                cycle.window = NULL,
+                reduce.both = F, 
                 ...) {
   
   
@@ -49,18 +50,30 @@ Eot <- function(pred,
                 
         # Use last entry of slot 'residuals' otherwise  
       } else if (z > 1) {
-        tmp.pred.eot <- EotCycle(pred = pred[[i:(i+cycle.window-1)]], 
-                            resp = if (z == 2) {pred.eot$resid.response 
-                            } else {pred.eot[[z-1]]$resid.response}, 
-                            resp.eq.pred = resp.eq.pred,
-                            n = z, 
-                            write.out = write.out,
-                            path.out = path.out, 
-                            names.out = if (!is.null(names.out) | write.out) {
-                              names.out[ceiling(i/cycle.window)]
-                            } else {
-                              NULL
-                            })
+        tmp.pred.eot <- EotCycle(
+          pred = if (!reduce.both) {
+            pred[[i:(i+cycle.window-1)]]
+          } else {
+            if (z == 2) {
+              pred.eot$resid.predictor
+            } else {
+              pred.eot[[z-1]]$resid.predictor
+            }
+          }, 
+          resp = if (z == 2) {
+            pred.eot$resid.response 
+          } else {
+            pred.eot[[z-1]]$resid.response
+          }, 
+          resp.eq.pred = resp.eq.pred,
+          n = z, 
+          write.out = write.out,
+          path.out = path.out, 
+          names.out = if (!is.null(names.out) | write.out) {
+            names.out[ceiling(i/cycle.window)]
+          } else {
+            NULL
+          })
         
         if (z == 2) {
           pred.eot <- list(pred.eot, tmp.pred.eot)
