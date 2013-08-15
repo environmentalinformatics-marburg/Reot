@@ -13,4 +13,4 @@ Journal of Climate, Volume 13, Issue 8 (April 2000) pp. 1421-1435
 **Empirical methods in short-term climate prediction**   
 H. M. van den Dool   
 Oxford University Press, Oxford, New York (2007)    
-[http://www.cpc.ncep.noaa.gov/products/people/wd51hd/](http://www.cpc.ncep.noaa.gov/products/people/wd51hd/)
+[http://www.oup.com/uk/catalogue/?ci=9780199202782](http://www.oup.com/uk/catalogue/?ci=9780199202782)
