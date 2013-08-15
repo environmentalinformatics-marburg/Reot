@@ -1,9 +1,9 @@
-\name{Reot-package}
-\alias{Reot-package}
+\name{Reot}
+\alias{Reot}
 \alias{Reot}
 \docType{package}
 \title{
-Empirical Orthogonal Teleconnections
+Empirical Orthogonal Teleconnections in R
 }
 \description{
 More about what it does (maybe more than one line)
@@ -13,19 +13,26 @@ More about what it does (maybe more than one line)
 \tabular{ll}{
 Package: \tab Reot\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2013-08-06\cr
-License: \tab What license is it under?\cr
+Version: \tab 0.1.1\cr
+Date: \tab 2013-08-15\cr
+License: \tab GNU GPL (>=3)\cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-Who wrote it
+Tim Appelhans, Florian Detsch
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 }
 \references{
-~~ Literature or other references for background information ~~
+Empirical Orthogonal Teleconnections\cr
+H. M. van den Dool, S. Saha, Å. Johansson (2000)\cr
+Journal of Climate, Volume 13, Issue 8 (April 2000) pp. 1421-1435\cr
+
+Empirical methods in short-term climate prediction\cr
+H. M. van den Dool (2007)\cr
+Oxford University Press, Oxford, New York (2007)\cr
+
 }
 ~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R ~~
 ~~ documentation directory ~~
