@@ -1,12 +1,12 @@
 Eot <- function(pred, 
                 resp = NULL, 
                 n = 1, 
-                standardised = F, 
-                write.out = F,
+                standardised = TRUE, 
+                write.out = FALSE,
                 path.out = ".", 
                 names.out = NULL,
                 cycle.window = NULL,
-                reduce.both = F, 
+                reduce.both = FALSE, 
                 ...) {
   
   

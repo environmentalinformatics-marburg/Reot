@@ -83,7 +83,7 @@ NumericVector predRsquaredSum(NumericMatrix pred_vals, NumericMatrix resp_vals,
       lm_rsq[j] = pow(corC(pred_vals(i, _), resp_vals(j, _)), 2.0);
       
       // Perform standardisation (optional)
-      if (standardised) {
+      if (!standardised) {
         lm_rsq[j] = lm_rsq[j] * var(resp_vals(j, _));
       }
       

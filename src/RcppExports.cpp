@@ -28,13 +28,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // predRsquaredSum
-NumericVector predRsquaredSum(NumericMatrix pred_vals, NumericMatrix resp_vals);
-RcppExport SEXP Reot_predRsquaredSum(SEXP pred_valsSEXP, SEXP resp_valsSEXP) {
+NumericVector predRsquaredSum(NumericMatrix pred_vals, NumericMatrix resp_vals, bool standardised);
+RcppExport SEXP Reot_predRsquaredSum(SEXP pred_valsSEXP, SEXP resp_valsSEXP, SEXP standardisedSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     NumericMatrix pred_vals = Rcpp::as<NumericMatrix >(pred_valsSEXP);
     NumericMatrix resp_vals = Rcpp::as<NumericMatrix >(resp_valsSEXP);
-    NumericVector __result = predRsquaredSum(pred_vals, resp_vals);
+    bool standardised = Rcpp::as<bool >(standardisedSEXP);
+    NumericVector __result = predRsquaredSum(pred_vals, resp_vals, standardised);
     return Rcpp::wrap(__result);
 END_RCPP
 }

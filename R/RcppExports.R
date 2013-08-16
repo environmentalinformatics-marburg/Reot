@@ -9,8 +9,8 @@ lmC <- function(x, y) {
     .Call('Reot_lmC', PACKAGE = 'Reot', x, y)
 }
 
-predRsquaredSum <- function(pred_vals, resp_vals) {
-    .Call('Reot_predRsquaredSum', PACKAGE = 'Reot', pred_vals, resp_vals)
+predRsquaredSum <- function(pred_vals, resp_vals, standardised) {
+    .Call('Reot_predRsquaredSum', PACKAGE = 'Reot', pred_vals, resp_vals, standardised)
 }
 
 respLmParam <- function(x, y, cell) {
