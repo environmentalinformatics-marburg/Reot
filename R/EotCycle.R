@@ -1,12 +1,13 @@
 EotCycle <- function(pred, 
-                resp, 
-                resp.eq.pred = F,
-                n = 1,
-                write.out,
-                path.out,
-                names.out,
-                n.cores = NULL,
-                ...) {
+                     resp, 
+                     resp.eq.pred = F,
+                     n = 1,
+                     standardised, 
+                     write.out,
+                     path.out,
+                     names.out,
+                     n.cores = NULL,
+                     ...) {
   
   
   ### Environmental settings
@@ -26,7 +27,8 @@ EotCycle <- function(pred,
   
   # Calculate and summarize R-squared per pred pixel
   cat("Calculating linear model ...", "\n")
-  x <- predRsquaredSum(pred_vals = pred.vals, resp_vals = resp.vals)
+  x <- predRsquaredSum(pred_vals = pred.vals, resp_vals = resp.vals, 
+                       standardised = standardised)
   # Replace missing values (land masses) with 0
   x[which(is.na(x))] <- 0 
   

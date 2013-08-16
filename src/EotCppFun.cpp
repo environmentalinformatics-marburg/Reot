@@ -67,7 +67,8 @@ List lmC(NumericVector x, NumericVector y) {
 
 
 // [[Rcpp::export]]
-NumericVector predRsquaredSum(NumericMatrix pred_vals, NumericMatrix resp_vals) {
+NumericVector predRsquaredSum(NumericMatrix pred_vals, NumericMatrix resp_vals, 
+                              bool standardised) {
   // Number of rows of input matrices
   int nrow_pred = pred_vals.nrow(), nrow_resp = resp_vals.nrow();
   
@@ -80,6 +81,11 @@ NumericVector predRsquaredSum(NumericMatrix pred_vals, NumericMatrix resp_vals) 
     NumericVector lm_rsq(nrow_resp);
     for (int j = 0; j < nrow_resp; j++) {
       lm_rsq[j] = pow(corC(pred_vals(i, _), resp_vals(j, _)), 2.0);
+      
+      // Perform standardisation (optional)
+      if (standardised) {
+        lm_rsq[j] = lm_rsq[j] * var(resp_vals(j, _));
+      }
       
       // Replace possible NaN with 0
       if (lm_rsq[j] != lm_rsq[j]) {
