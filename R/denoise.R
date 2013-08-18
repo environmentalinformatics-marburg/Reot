@@ -23,13 +23,15 @@ denoise <- function(data,
   cent <- data.vals_pca$center
   
   cat("\n",
-      "using the first",
+      "using the first ",
       k,
-      "components to reconstruct series.\n",
-      "these account for",
+      " components (of ",
+      nlayers,
+      ") to reconstruct series.\n",
+      " these account for ",
       expl.var,
-      "of variance in orig. series\n\n", 
-      sep = " ")
+      " of variance in orig. series\n\n", 
+      sep = "")
   
   
   # Reconstruction
