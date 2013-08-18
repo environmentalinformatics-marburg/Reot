@@ -36,6 +36,8 @@ EotCycle <- function(pred,
   cat("Locating ", n, ". EOT ...", "\n", sep = "")
   maxxy <- which(x == max(x, na.rm = TRUE))
   
+  if (length(maxxy) != 1) 
+    stop("\nlocation of EOT ambiguous! multiple possible locations detected")
   
   ### Regression of most explanatory pred pixel with resp pixels
     
