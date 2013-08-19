@@ -61,7 +61,8 @@ EotCycle <- function(pred,
                          xmn = xmin(resp), xmx = xmax(resp), 
                          ymn = ymin(resp), ymx = ymax(resp))
   
-  rst.resp.r <- rst.resp.rsq <- rst.resp.slp <- rst.resp.p <- rst.resp.template
+  rst.resp.r <- rst.resp.rsq <- rst.resp.intercept <- 
+    rst.resp.slp <- rst.resp.p <- rst.resp.template
 
   # RasterBrick template for residuals
   brck.resp.resids <- brick(nrows = nrow(resp), ncols = ncol(resp), 
@@ -73,6 +74,8 @@ EotCycle <- function(pred,
   rst.resp.r[] <- sapply(resp.lm.param.p, "[[", 1)
   # R-squared
   rst.resp.rsq[] <- sapply(resp.lm.param.p, "[[", 1) ^ 2
+  # Intercept
+  rst.resp.intercept[] <- sapply(resp.lm.param.p, "[[", 2)
   # Slope
   rst.resp.slp[] <- sapply(resp.lm.param.p, "[[", 3)
   # P value
@@ -108,7 +111,8 @@ EotCycle <- function(pred,
                                 xmn = xmin(pred), xmx = xmax(pred), 
                                 ymn = ymin(pred), ymx = ymax(pred))
     
-    rst.pred.r <- rst.pred.rsq <- rst.pred.slp <- rst.pred.p <- rst.pred.template
+    rst.pred.r <- rst.pred.rsq <- rst.pred.intercept <- 
+      rst.pred.slp <- rst.pred.p <- rst.pred.template
     
     # RasterBrick template for residuals
     brck.pred.resids <- brick(nrows = nrow(pred), ncols = ncol(pred), 
@@ -120,6 +124,8 @@ EotCycle <- function(pred,
     rst.pred.r[] <- sapply(pred.lm.param.p, "[[", 1)
     # R-squared
     rst.pred.rsq[] <- sapply(pred.lm.param.p, "[[", 1) ^ 2
+    # Intercept
+    rst.pred.intercept[] <- sapply(pred.lm.param.p, "[[", 2)
     # Slope
     rst.pred.slp[] <- sapply(pred.lm.param.p, "[[", 3)
     # P value
@@ -136,26 +142,28 @@ EotCycle <- function(pred,
                 max.xy = maxxy,
                 r.predictor = rst.pred.r,
                 rsq.predictor = rst.pred.rsq,
+                int.predictor = rst.pred.intercept, 
                 slp.predictor = rst.pred.slp,
                 p.predictor = rst.pred.p,
                 resid.predictor = brck.pred.resids,
                 r.response = rst.resp.r,
                 rsq.response = rst.resp.rsq,
+                int.response = rst.resp.intercept, 
                 slp.response = rst.resp.slp,
                 p.response = rst.resp.p,
                 resid.response = brck.resp.resids)
     
     # Output storage (optional)
     if (write.out) {
-      out.name <- lapply(c("pred_r", "pred_rsq", "pred_slp", "pred_p", "pred_resids", 
-                           "resp_r", "resp_rsq", "resp_slp", "resp_p", "resp_resids"), 
+      out.name <- lapply(c("pred_r", "pred_rsq", "pred_int", "pred_slp", "pred_p", "pred_resids", 
+                           "resp_r", "resp_rsq", "resp_int", "resp_slp", "resp_p", "resp_resids"), 
                          function(i) {
                            paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
                          })
       
       registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
-      foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.slp, rst.pred.p, brck.pred.resids,
-                    rst.resp.r, rst.resp.rsq, rst.resp.slp, rst.resp.p, brck.resp.resids), 
+      foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
+                    rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
               b = unlist(out.name), .packages = "raster") %dopar% {
                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
               }
@@ -169,19 +177,20 @@ EotCycle <- function(pred,
                 max.xy = maxxy,
                 r.response = rst.resp.r,
                 rsq.response = rst.resp.rsq,
+                int.response = rst.resp.intercept, 
                 slp.response = rst.resp.slp,
                 p.response = rst.resp.p,
                 resid.response = brck.resp.resids)
     
     # Output storage (optional)
     if (write.out) {
-      out.name <- lapply(c("resp_r", "resp_rsq", "resp_slp", "resp_p", "resp_resids"), 
+      out.name <- lapply(c("resp_r", "resp_rsq", "resp_int", "resp_slp", "resp_p", "resp_resids"), 
                          function(i) {
                            paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
                          })
       
       registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
-      foreach(a = c(rst.resp.r, rst.resp.rsq, rst.resp.slp, rst.resp.p, brck.resp.resids), 
+      foreach(a = c(rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
               b = unlist(out.name), .packages = "raster") %dopar% {
                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
                       }
