@@ -39,6 +39,15 @@ EotCycle <- function(pred,
   if (length(maxxy) != 1) 
     stop("\nlocation of EOT ambiguous! multiple possible locations detected")
   
+  xy <- xyFromCell(pred, maxxy)
+  location.df <- as.data.frame(cbind(xy, paste("EOT", 
+                                               sprintf("%02.f", n), 
+                                               sep = "_")),
+                               stringsAsFactors = FALSE)
+  names(location.df) <- c("x", "y", "EOT")
+  mode(location.df$x) <- "numeric"
+  mode(location.df$y) <- "numeric"
+  
   ### Regression of most explanatory pred pixel with resp pixels
     
   ## Fit lm
@@ -140,6 +149,7 @@ EotCycle <- function(pred,
     # Output returned by function
     out <- list(eot.series = eot.ts,
                 max.xy = maxxy,
+                loc.eot = location.df,
                 r.predictor = rst.pred.r,
                 rsq.predictor = rst.pred.rsq,
                 int.predictor = rst.pred.intercept, 
@@ -161,6 +171,12 @@ EotCycle <- function(pred,
                            paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
                          })
       
+      df.name <- paste(names.out, "eot_locations.csv", sep = "_")
+      
+      write.table(location.df, col.names = FALSE,
+                paste(path.out, df.name, sep = "/"), 
+                row.names = FALSE, append = TRUE, sep = ",")
+      
       registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
       foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
                     rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
@@ -175,6 +191,7 @@ EotCycle <- function(pred,
     # Output returned by function
     out <- list(eot.series = eot.ts,
                 max.xy = maxxy,
+                loc.eot = location.df,
                 r.response = rst.resp.r,
                 rsq.response = rst.resp.rsq,
                 int.response = rst.resp.intercept, 
@@ -188,6 +205,12 @@ EotCycle <- function(pred,
                          function(i) {
                            paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
                          })
+      
+      df.name <- paste(names.out, "eot_locations.csv", sep = "_")
+      
+      write.table(location.df, col.names = FALSE,
+                paste(path.out, df.name, sep = "/"), 
+                row.names = FALSE, append = TRUE, sep = ",")
       
       registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
       foreach(a = c(rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
