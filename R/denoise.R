@@ -26,6 +26,7 @@ denoise <- function(data,
     expl.var <- cumsum(pca$sdev^2 / sum(pca$sdev^2))[k]
   
   eivecs <- as.matrix(pca$loadings[, 1:k])
+  print(str(eivecs))
   pvals <- pca$scores[, 1:k]
   cent <- pca$center
   
@@ -41,7 +42,7 @@ denoise <- function(data,
       sep = "")
   
   # Reconstruction
-  recons <- lapply(seq(k), function(i) {
+  recons <- lapply(seq(nlayers(data)), function(i) {
     rowSums(t(eivecs[i, ] * t(pvals))) + cent[i]
   })
   
