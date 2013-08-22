@@ -23,7 +23,11 @@ plotEot <- function(eot.obj,
     mm <- map("world", plot = F, fill = T, col = "grey70")
   }
   
-  pred.p <- spplot(eot.obj[[1]][[eot]][[pred.prm]], mm = mm,
+  px.pred <- ncell(eot.obj[[1]][[eot]]$r.predictor)
+  px.resp <- ncell(eot.obj[[1]][[eot]]$r.response)
+  
+  pred.p <- spplot(eot.obj[[1]][[eot]][[pred.prm]], 
+                   mm = mm, maxpixels = px.pred,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
                    main = paste(pred.prm, "EOT", eot, sep = " "), 
@@ -35,7 +39,8 @@ plotEot <- function(eot.obj,
                      }
                      }) 
   
-  resp.p <- spplot(eot.obj[[1]][[eot]][[resp.prm]], mm = mm,
+  resp.p <- spplot(eot.obj[[1]][[eot]][[resp.prm]], 
+                   mm = mm, maxpixels = px.resp,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
                    main = paste(resp.prm, "EOT", eot, sep = " "), 
