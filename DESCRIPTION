@@ -3,7 +3,7 @@ Type: Package
 Title: Empirical Orthogonal Teleconnections in R
 Version: 0.1.1
 Date: 2013-08-15
-Author: Tim Appelhans, Florian Detsch
+Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 Description: More about what it does (maybe more than one line)
 License: GNU GPL (>=3)

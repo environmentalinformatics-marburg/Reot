@@ -1,26 +1,33 @@
 denoise <- function(data,
                     k = NULL,
                     expl.var = 0.95,
-                    n.cores = NULL, 
+                    n.cores = NULL,
+                    weighted = TRUE,
                     ...) {
 
   # Required packages
   stopifnot(require(doParallel))
   
+  x <- data[]
+  
   # PCA
-  data.vals <- data[]
-  data.vals_pca <- prcomp(data.vals)
+  if (isTRUE(weighted)) { 
+    w <- getWeights(data)
+    cm <- covWeight(x, w)
+    pca <- princomp(x, covmat = cm, scores = TRUE)
+  } else {
+    pca <- princomp(x, scores = TRUE)
+  }
   
   if (is.null(k)) 
-    k <- which(cumsum(data.vals_pca$sdev^2 / sum(data.vals_pca$sdev^2)) 
-               >= expl.var)[1]
+    k <- which(cumsum(pca$sdev^2 / sum(pca$sdev^2)) >= expl.var)[1]
   
   if (!is.null(k)) 
-    expl.var <- cumsum(data.vals_pca$sdev^2 / sum(data.vals_pca$sdev^2))[k]
+    expl.var <- cumsum(pca$sdev^2 / sum(pca$sdev^2))[k]
   
-  eivecs <- data.vals_pca$rotation[, 1:k]
-  pvals <- data.vals_pca$x[, 1:k]
-  cent <- data.vals_pca$center
+  eivecs <- as.matrix(pca$loadings[, 1:k])
+  pvals <- pca$scores[, 1:k]
+  cent <- pca$center
   
   cat("\n",
       "using the first ",
@@ -33,9 +40,8 @@ denoise <- function(data,
       " of variance in orig. series\n\n", 
       sep = "")
   
-  
   # Reconstruction
-  recons <- lapply(seq(nrow(eivecs)), function(i) {
+  recons <- lapply(seq(k), function(i) {
     rowSums(t(eivecs[i, ] * t(pvals))) + cent[i]
   })
   
@@ -43,24 +49,21 @@ denoise <- function(data,
   if (is.null(n.cores)) 
     n.cores <- detectCores()
   
-  clstr <- makeCluster(n.cores)
-  clusterEvalQ(clstr, library(raster))
+  registerDoParallel(cl <- makeCluster(n.cores))
 
-  # Insert reconstructed values in original data set
-  clusterExport(clstr, c("data", "recons"), envir = environment())
-  data.tmp <- do.call("brick", parLapply(clstr, seq(recons), function(i) {
-    tmp.data <- data[[i]]
-    tmp.recons <- recons[[i]]
+  # Insert reconstructed values in original data set 
+  data.tmp <- do.call("brick", 
+                      foreach(i = seq(recons), .packages = "raster") 
+                      %dopar% {
+                        tmp.data <- data[[i]]
+                        tmp.recons <- recons[[i]]
+                        
+                        tmp.data[] <- tmp.recons
+                        return(tmp.data)
+                      })
 
-    tmp.data[] <- tmp.recons
-    return(tmp.data)
-  }))
-
-  # Check whether input is lat/lon and if then apply geographic weighting
-  if (isLonLat(data)) data.tmp <- geoWeight(data.tmp)
-  
   # Deregister parallel backend
-  stopCluster(clstr)
+  stopCluster(cl)
 
   # Return denoised data set
   return(data.tmp)
