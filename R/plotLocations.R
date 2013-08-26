@@ -1,9 +1,5 @@
 plotLocations <- function(eot.obj) {
 
-  library(ggplot2)
-  
-  wrld <- map_data("world")
-  
   loc.df <- as.data.frame(do.call("rbind", 
                                   lapply(seq(eot.obj[[1]]), function(i) {
     xyFromCell(eot.obj[[1]][[i]]$rsq.predictor, 
@@ -13,20 +9,54 @@ plotLocations <- function(eot.obj) {
   loc.df$eot <- paste("EOT", sprintf("%02.f", seq(eot.obj[[1]])), 
                       sep = "_")
   
-  p <- ggplot() + coord_fixed()
+  mm <- map("world", plot = FALSE, fill = TRUE)
+  px.pred <- ncell(eot.obj[[1]]$EOT_1$r.predictor)
   
-  base.world <- p + geom_polygon(data = wrld,
-                                 aes(x = long,
-                                     y = lat,
-                                     group = group),
-                                 fill = "grey70") +
-    theme_bw()
+  pred.p <- spplot(eot.obj[[1]]$EOT_1$rsq.predictor, 
+                   mm = mm, maxpixels = px.pred,
+                   colorkey = FALSE, 
+                   col.regions = "grey50", panel = function(..., mm) {
+                     panel.levelplot(...)
+                     panel.polygon(mm$x, mm$y, lwd = 0.5, 
+                                   border = "grey20", col = "grey70")
+                   }) 
   
-  eot.map <- base.world +
-    geom_point(data = loc.df, aes(x = x,  y = y,  
-                                  colour = eot, size = 5)) +
-    guides(size = FALSE)
+  clrs.hcl <- function(n) {
+    hcl(h = seq(230, 0, length.out = n), 
+        c = 60, l = 50, fixup = TRUE)
+  }
   
-  return(eot.map)
+  points.p <- xyplot(y ~ x, data = loc.df, col = "black", 
+                     fill = clrs.hcl(length(eot.obj[[1]])), pch = 21,
+                     cex = 2)
+  
+  out <- pred.p + as.layer(points.p)
+  
+  map.vp <- viewport(x = 0, y = 0, 
+                     height = 1, width = 0.8,
+                     just = c("right", "bottom"))
+  
+  pushViewport(map.vp)
+  
+  print(out)
+  
+#   n <- length(eot.obj[[1]])
+#   
+#   if(n == 1) ypos <- 0.5 else ypos <- seq(0.95, 0.05, length.out = n + 2)
+#   if(n == 1) ypos <- ypos else ypos <- ypos[-c(1, length(ypos))]
+#   xpos.pts <- unit(0.1, "npc")
+#   size.pts <- 0.5 / n
+#   
+#   for (i in 1:n) {
+#     
+#     vp <- viewport(x = xpos.pts, y = ypos[i], 
+#                    height = size.pts, width = 0.1,
+#                    just = c("left", "centre"))
+#     
+#     pushViewport(vp)
+#     
+#   }
+    
+  #return(eot.map)
  
 }
