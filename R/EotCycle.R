@@ -120,7 +120,7 @@ EotCycle <- function(pred,
                                 xmn = xmin(pred), xmx = xmax(pred), 
                                 ymn = ymin(pred), ymx = ymax(pred))
     
-    rst.pred.r <- rst.pred.rsq <- rst.pred.intercept <- 
+    rst.pred.r <- rst.pred.rsq <- rst.pred.rsq.sums <- rst.pred.intercept <- 
       rst.pred.slp <- rst.pred.p <- rst.pred.template
     
     # RasterBrick template for residuals
@@ -133,6 +133,8 @@ EotCycle <- function(pred,
     rst.pred.r[] <- sapply(pred.lm.param.p, "[[", 1)
     # R-squared
     rst.pred.rsq[] <- sapply(pred.lm.param.p, "[[", 1) ^ 2
+    # R-squared sums
+    rst.pred.rsq.sums[] <- x
     # Intercept
     rst.pred.intercept[] <- sapply(pred.lm.param.p, "[[", 2)
     # Slope
@@ -152,6 +154,7 @@ EotCycle <- function(pred,
                 loc.eot = location.df,
                 r.predictor = rst.pred.r,
                 rsq.predictor = rst.pred.rsq,
+                rsq.sums.predictor = rst.pred.rsq.sums,
                 int.predictor = rst.pred.intercept, 
                 slp.predictor = rst.pred.slp,
                 p.predictor = rst.pred.p,
@@ -165,7 +168,7 @@ EotCycle <- function(pred,
     
     # Output storage (optional)
     if (write.out) {
-      out.name <- lapply(c("pred_r", "pred_rsq", "pred_int", "pred_slp", "pred_p", "pred_resids", 
+      out.name <- lapply(c("pred_r", "pred_rsq", "pred_rsq_sums", "pred_int", "pred_slp", "pred_p", "pred_resids", 
                            "resp_r", "resp_rsq", "resp_int", "resp_slp", "resp_p", "resp_resids"), 
                          function(i) {
                            paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
@@ -178,7 +181,7 @@ EotCycle <- function(pred,
                 row.names = FALSE, append = TRUE, sep = ",")
       
       registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
-      foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
+      foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
                     rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
               b = unlist(out.name), .packages = "raster") %dopar% {
                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
@@ -187,13 +190,24 @@ EotCycle <- function(pred,
     }
     
   } else {
-        
+     
+    # RasterLayer template for R-squared, slope and p value
+    rst.pred.template <- raster(nrows = nrow(pred), ncols = ncol(pred), 
+                                xmn = xmin(pred), xmx = xmax(pred), 
+                                ymn = ymin(pred), ymx = ymax(pred))
+    
+    rst.pred.rsq.sums <- rst.pred.template
+    
+    # R-squared sums
+    rst.pred.rsq.sums[] <- x
+    
     # Output returned by function
     out <- list(eot.series = eot.ts,
                 max.xy = maxxy,
                 loc.eot = location.df,
                 r.response = rst.resp.r,
                 rsq.response = rst.resp.rsq,
+                rsq.sums.predictor = rst.pred.rsq.sums,
                 int.response = rst.resp.intercept, 
                 slp.response = rst.resp.slp,
                 p.response = rst.resp.p,
@@ -201,7 +215,7 @@ EotCycle <- function(pred,
     
     # Output storage (optional)
     if (write.out) {
-      out.name <- lapply(c("resp_r", "resp_rsq", "resp_int", "resp_slp", "resp_p", "resp_resids"), 
+      out.name <- lapply(c("resp_r", "resp_rsq", "pred_rsq_sums", "resp_int", "resp_slp", "resp_p", "resp_resids"), 
                          function(i) {
                            paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
                          })
@@ -213,7 +227,7 @@ EotCycle <- function(pred,
                 row.names = FALSE, append = TRUE, sep = ",")
       
       registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
-      foreach(a = c(rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
+      foreach(a = c(rst.resp.r, rst.resp.rsq, rst.pred.rsq.sums, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
               b = unlist(out.name), .packages = "raster") %dopar% {
                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
                       }
