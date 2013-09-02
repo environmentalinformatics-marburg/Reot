@@ -7,10 +7,14 @@ eot <- function(pred,
                 names.out = NULL,
                 cycle.window = NULL,
                 reduce.both = FALSE, 
+                n.cores = NULL,
                 ...) {
   
   
   ### Environmental settings
+  stopifnot(require(doParallel))
+  
+  if (is.null(n.cores)) detectCores() else n.cores
   
   # Required functions
   # source("src/EotCycle.R")
@@ -44,6 +48,7 @@ eot <- function(pred,
                              standardised = standardised, 
                              write.out = write.out,
                              path.out = path.out, 
+                             n.cores = n.cores,
                              names.out = if (!is.null(names.out) | write.out) {
                                names.out[ceiling(i/cycle.window)]
                              } else {
