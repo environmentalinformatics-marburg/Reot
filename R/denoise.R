@@ -1,7 +1,7 @@
 denoise <- function(data,
                     k = NULL,
                     expl.var = 0.95,
-                    n.cores = NULL,
+                    #n.cores = NULL,
                     weighted = TRUE,
                     ...) {
 
@@ -12,9 +12,10 @@ denoise <- function(data,
   
   # PCA
   if (isTRUE(weighted)) { 
-    w <- getWeights(data)
-    cm <- covWeight(x, w)
-    pca <- princomp(x, covmat = cm, scores = TRUE)
+    #w <- getWeights(data)
+    #cm <- covWeight(x, getWeights(data))
+    pca <- princomp(x, covmat = covWeight(x, getWeights(data)), 
+                    scores = TRUE)
   } else {
     pca <- princomp(x, scores = TRUE)
   }
@@ -25,9 +26,9 @@ denoise <- function(data,
   if (!is.null(k)) 
     expl.var <- cumsum(pca$sdev^2 / sum(pca$sdev^2))[k]
   
-  eivecs <- as.matrix(pca$loadings[, 1:k])
-  pvals <- pca$scores[, 1:k]
-  cent <- pca$center
+  #eivecs <- as.matrix(pca$loadings[, 1:k])
+  #pvals <- pca$scores[, 1:k]
+  #cent <- pca$center
   
   cat("\n",
       "using the first ",
@@ -42,28 +43,27 @@ denoise <- function(data,
   
   # Reconstruction
   recons <- lapply(seq(nlayers(data)), function(i) {
-    rowSums(t(eivecs[i, ] * t(pvals))) + cent[i]
+    rowSums(t(as.matrix(pca$loadings[, 1:k])[i, ] * 
+                t(pca$scores[, 1:k]))) + pca$center[i]
   })
   
   # Parallelization
-  if (is.null(n.cores)) 
-    n.cores <- detectCores()
+#   if (is.null(n.cores)) 
+#     n.cores <- detectCores()
   
-  registerDoParallel(cl <- makeCluster(n.cores))
+#   registerDoParallel(cl <- makeCluster(n.cores))
 
   # Insert reconstructed values in original data set 
   data.tmp <- do.call("brick", 
-                      foreach(i = seq(recons), .packages = "raster") 
-                      %dopar% {
+                      foreach(i = seq(recons)) #, .packages = "raster") 
+                      %do% {
                         tmp.data <- data[[i]]
-                        tmp.recons <- recons[[i]]
-                        
-                        tmp.data[] <- tmp.recons
+                        tmp.data[] <- recons[[i]]
                         return(tmp.data)
                       })
 
   # Deregister parallel backend
-  stopCluster(cl)
+#   stopCluster(cl)
 
   # Return denoised data set
   return(data.tmp)

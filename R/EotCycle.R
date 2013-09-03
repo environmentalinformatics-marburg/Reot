@@ -6,7 +6,7 @@ EotCycle <- function(pred,
                      write.out,
                      path.out,
                      names.out,
-                     n.cores = NULL,
+                     #n.cores = NULL,
                      ...) {
   
   
@@ -180,13 +180,32 @@ EotCycle <- function(pred,
                 paste(path.out, df.name, sep = "/"), 
                 row.names = FALSE, append = TRUE, sep = ",")
       
-      registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
+      #registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
       foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
                     rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
-              b = unlist(out.name), .packages = "raster") %dopar% {
+              b = unlist(out.name)) %do% { #, .packages = "raster"
                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
               }
-      stopCluster(clstr)
+      #stopCluster(clstr)
+      
+      rm(list = c("eot.ts",
+                  "maxxy",
+                  "location.df",
+                  "rst.pred.r",
+                  "rst.pred.rsq",
+                  "rst.pred.rsq.sums",
+                  "rst.pred.intercept", 
+                  "rst.pred.slp",
+                  "rst.pred.p",
+                  "brck.pred.resids",
+                  "rst.resp.r",
+                  "rst.resp.rsq",
+                  "rst.resp.intercept", 
+                  "rst.resp.slp",
+                  "rst.resp.p",
+                  "brck.resp.resids"))
+      gc()
+      
     }
     
   } else {
@@ -226,12 +245,27 @@ EotCycle <- function(pred,
                 paste(path.out, df.name, sep = "/"), 
                 row.names = FALSE, append = TRUE, sep = ",")
       
-      registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
+      #registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
       foreach(a = c(rst.resp.r, rst.resp.rsq, rst.pred.rsq.sums, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
-              b = unlist(out.name), .packages = "raster") %dopar% {
+              b = unlist(out.name)) %dopar% { #, .packages = "raster")
                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
                       }
-      stopCluster(clstr)
+      #stopCluster(clstr)
+      
+      rm(list = c("pred.vals",
+                  "resp.vals",
+                  "eot.ts",
+                  "maxxy",
+                  "location.df",
+                  "rst.resp.r",
+                  "rst.resp.rsq",  
+                  "rst.pred.rsq.sums",
+                  "rst.resp.intercept", 
+                  "rst.resp.slp",
+                  "rst.resp.p",
+                  "brck.resp.resids"))
+      gc()
+      
     }
   }
   

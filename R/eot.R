@@ -7,17 +7,13 @@ eot <- function(pred,
                 names.out = NULL,
                 cycle.window = NULL,
                 reduce.both = FALSE, 
-                n.cores = NULL,
+                #n.cores = NULL,
                 ...) {
   
   
   ### Environmental settings
-  stopifnot(require(doParallel))
-  
-  if (is.null(n.cores)) detectCores() else n.cores
-  
-  # Required functions
-  # source("src/EotCycle.R")
+#   stopifnot(require(doParallel))
+#   if (is.null(n.cores)) detectCores() else n.cores
   
   # Duplicate predictor set in case predictor and response are identical
   if (is.null(resp)) {
@@ -35,7 +31,8 @@ eot <- function(pred,
   ### EOT
   
   # Loop through RasterStacks by specified cycle.window (e.g. 12 for one year)
-  pred.eot <- lapply(seq(1, nlayers(pred), cycle.window), function(i) {
+  #pred.eot <- 
+  lapply(seq(1, nlayers(pred), cycle.window), function(i) {
     
     # User-defined iterations
     for (z in seq(n)) {
@@ -48,7 +45,7 @@ eot <- function(pred,
                              standardised = standardised, 
                              write.out = write.out,
                              path.out = path.out, 
-                             n.cores = n.cores,
+                             #n.cores = n.cores,
                              names.out = if (!is.null(names.out) | write.out) {
                                names.out[ceiling(i/cycle.window)]
                              } else {
@@ -99,6 +96,6 @@ eot <- function(pred,
   })
   
   # Return output list
-  return(pred.eot)
+  #return(pred.eot)
   
 }
