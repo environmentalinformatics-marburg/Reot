@@ -36,8 +36,12 @@ EotCycle <- function(pred,
   cat("Locating ", n, ". EOT ...", "\n", sep = "")
   maxxy <- which(x == max(x, na.rm = TRUE))
   
-  if (length(maxxy) != 1) 
-    stop("\nlocation of EOT ambiguous! multiple possible locations detected")
+  cat("eots:", maxxy, sep = " ")
+  
+  if (length(maxxy) != 1) {
+    return(NULL)
+    cat("\nlocation of EOT ambiguous! multiple possible locations detected\n")
+  } else {
   
   xy <- xyFromCell(pred, maxxy)
   location.df <- as.data.frame(cbind(xy, paste("EOT", 
@@ -271,4 +275,6 @@ EotCycle <- function(pred,
   
   # Return output
   return(out)
+  
+  }
 }

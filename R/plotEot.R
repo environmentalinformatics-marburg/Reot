@@ -6,8 +6,10 @@ plotEot <- function(eot.obj,
                     anomalies = TRUE,
                     add.map = TRUE,
                     times.vec = NULL,
+                    arrange = c("wide", "long"),
                     clr = colorRampPalette(
-                      rev(brewer.pal(9, "Spectral")))(1000))
+                      rev(brewer.pal(9, "Spectral")))(1000),
+                    ...)
 {
   
   if (is.null(times.vec)) 
@@ -37,7 +39,9 @@ plotEot <- function(eot.obj,
                      panel.polygon(mm$x, mm$y, lwd = 0.5, 
                                    border = "grey20")
                      }
-                     }) 
+                     }, ...) 
+  
+  if (show.eot.loc) pred.p <- pred.p + as.layer(eot.location.p)
   
   resp.p <- spplot(eot.obj[[1]][[eot]][[resp.prm]], 
                    mm = mm, maxpixels = px.resp,
@@ -50,7 +54,9 @@ plotEot <- function(eot.obj,
                        panel.polygon(mm$x, mm$y, lwd = 0.5, 
                                      border = "grey20")
                      }
-                   }) 
+                   }, ...) 
+  
+  if (show.eot.loc) resp.p <- resp.p + as.layer(eot.location.p)
   
   eot.ts <- xyplot(eot.obj[[1]][[eot]]$eot.series[1, ] ~ times.vec,
                    type = "b", pch = 20, col = "black", 
@@ -58,60 +64,22 @@ plotEot <- function(eot.obj,
                    scales = list(tck = c(0.5, 0), x = list(axs = "i")), 
                    main = paste("time series EOT", eot, sep = " ")) 
   
+  if (anomalies) {
+    eot.ts <- eot.ts + layer(panel.abline(h = 0, col = "grey40", lty = 3), 
+                             under = TRUE)
+  }
+
+  ### set layout to wide or long
+  arrange <- arrange[1]
+  if (arrange == "wide") ncls <- 2 else ncls <- 1
+  
+  ### amalgamate pred.p and resp.p according to layout
+  c.pred.resp <- arrangeGrob(pred.p, resp.p, ncol = ncls)
+  
   ### clear plot area
   grid.newpage()
   
-  ### define first plotting region (viewport)
-  vp1 <- viewport(x = 0, y = 1, 
-                  height = 0.7, width = 0.5,
-                  just = c("left", "top"),
-                  name = "left")
+  ### combine c.pred.resp and eot time series and plot
+  grid.arrange(c.pred.resp, eot.ts, heights = c(1, 0.5), ncol = 1)
   
-  ### enter vp1 
-  pushViewport(vp1)
-  
-  ### plot a plot - needs to be printed (and newpage set to FALSE)!!!
-  if (!show.eot.loc) print(pred.p, newpage = FALSE) else
-    print(pred.p + 
-            as.layer(eot.location.p), 
-          newpage = FALSE)
-  
-  ### leave vp1 - up one level (into root vieport)
-  upViewport(1)
-  
-  ### define second plot area
-  vp2 <- viewport(x = 1, y = 1, 
-                  height = 0.7, width = 0.5,
-                  just = c("right", "top"),
-                  name = "right")
-  
-  ### enter vp2
-  pushViewport(vp2)
-  
-  ### plot another plot
-  if (!show.eot.loc) print(resp.p, newpage = FALSE) else
-    print(resp.p + 
-            as.layer(eot.location.p), 
-          newpage = FALSE)
-  
-  ### leave vp2
-  upViewport(1)
-  
-  ### define second plot area
-  vp3 <- viewport(x = 0.05, y = 0, 
-                  height = 0.3, width = 0.9,
-                  just = c("left", "bottom"),
-                  name = "botoom")
-  
-  ### enter vp2
-  pushViewport(vp3)
-  
-  ### plot another plot
-  if (!anomalies) print(eot.ts, newpage = FALSE) else
-    print(eot.ts + 
-            layer(panel.abline(h = 0, col = "grey40", lty = 3), 
-                  under = TRUE), 
-          newpage = FALSE)
-  
-  upViewport(0)
 }
