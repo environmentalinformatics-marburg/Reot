@@ -1,4 +1,4 @@
-plotLocations <- function(eot.obj) {
+plotLocations <- function(eot.obj, ...) {
 
   ### some helper functions especially for the grid layout
   ### resizingTextGrob from 
@@ -98,7 +98,7 @@ plotLocations <- function(eot.obj) {
     pushViewport(vp)
     
     grid.circle(gp = gpar(fill = clrs[i], 
-                          col = "black"))
+                          col = "black", ...))
     
     upViewport()
     

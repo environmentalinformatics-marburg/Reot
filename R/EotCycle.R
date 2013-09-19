@@ -36,7 +36,7 @@ EotCycle <- function(pred,
   cat("Locating ", n, ". EOT ...", "\n", sep = "")
   maxxy <- which(x == max(x, na.rm = TRUE))
   
-  cat("eots:", maxxy, sep = " ")
+  cat("location:", xyFromCell(pred, maxxy), "\n\n", sep = " ")
   
   if (length(maxxy) != 1) {
     return(NULL)
@@ -97,7 +97,7 @@ EotCycle <- function(pred,
   brck.resp.resids[] <- matrix(sapply(resp.lm.param.p, "[[", 4), 
                                ncol = nlayers(pred), byrow = TRUE)
   # EOT over time
-  eot.ts <- extract(pred, maxxy)
+  eot.ts <- raster::extract(pred, maxxy)
   
   ### Regression of most explanatory pred pixel with pred pixels
   
