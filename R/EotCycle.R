@@ -30,25 +30,29 @@ EotCycle <- function(pred,
   x <- predRsquaredSum(pred_vals = pred.vals, resp_vals = resp.vals, 
                        standardised = standardised)
   # Replace missing values (land masses) with 0
-  x[which(is.na(x))] <- 0 
+  #x[which(is.na(x))] <- 0 
   
   # Identify pred pixel with highest sum of r.squared
   cat("Locating ", n, ". EOT ...", "\n", sep = "")
-  maxxy <- which(x == max(x, na.rm = TRUE))
+  maxxy.all <- which(x == max(x, na.rm = TRUE))
+  maxxy <- maxxy.all[1]
   
-  cat("location:", xyFromCell(pred, maxxy), "\n\n", sep = " ")
+  cat("location:", xyFromCell(pred, maxxy), "\n", sep = " ")
+  cat("max rsq value:", x[x == max(x, na.rm = TRUE)], "\n\n", sep = " ")
   
-  if (length(maxxy) != 1) {
-    return(NULL)
-    cat("\nlocation of EOT ambiguous! multiple possible locations detected\n")
-  } else {
+  if (length(maxxy.all) != 1) {
+    #return(NULL)
+    cat("LOCATION OF EOT AMBIGUOUS! MULTIPLE POSSIBLE LOCATIONS DETECTED, USING ONLY THE FIRST!\n\n")
+  } #else {
   
   xy <- xyFromCell(pred, maxxy)
   location.df <- as.data.frame(cbind(xy, paste("EOT", 
                                                sprintf("%02.f", n), 
-                                               sep = "_")),
+                                               sep = "_"),
+                                     if (length(maxxy.all) != 1) 
+                                       "ambiguous" else "ok"),
                                stringsAsFactors = FALSE)
-  names(location.df) <- c("x", "y", "EOT")
+  names(location.df) <- c("x", "y", "EOT", "comment")
   mode(location.df$x) <- "numeric"
   mode(location.df$y) <- "numeric"
   
@@ -276,5 +280,5 @@ EotCycle <- function(pred,
   # Return output
   return(out)
   
-  }
+  #}
 }
