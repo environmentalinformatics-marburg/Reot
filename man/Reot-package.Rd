@@ -42,10 +42,8 @@ Oxford University Press, Oxford, New York (2007)\cr
 }
 \examples{
 #### Example I: recreate figure 6 from van den Dool et al. (2000)
-library(raster)
 library(rworldmap)
 library(rgdal)
-library(latticeExtra)
 library(rgeos)
 
 data(vdendool)
@@ -128,7 +126,7 @@ gimms.stck.eval <- gimmsKiliNDVI[[pred.ind1]]
 mode <- eot(pred = gimms.stck.pred,
             resp = mod.stck.pred, n = 2)
 
-### evaluate prediction
+# prediction
 ts.mode.eval <- gimms.stck.eval[mode[[1]][[1]]$max.xy]
 
 mod.predicted <- stack(lapply(seq(nlayers(mod.stck.eval)), function(i) {
@@ -139,6 +137,7 @@ mod.observed <- mod.stck.eval
 pred.vals <- getValues(mod.predicted) / 10000
 obs.vals <- getValues(mod.observed) / 10000
 
+# evaluate prediction
 # error scores
 ME <- colMeans(pred.vals - obs.vals, na.rm = TRUE)
 MAE <- colMeans(abs(pred.vals - obs.vals), na.rm = TRUE)
@@ -146,20 +145,17 @@ RMSE <- sqrt(colMeans((pred.vals - obs.vals)^2, na.rm = TRUE))
 R <- diag(cor(pred.vals, obs.vals, use = "complete.obs"))
 Rsq <- R * R
 
-
-# visualise error scores
 scores <- data.frame(ME, MAE, RMSE, R, Rsq)
 melt.scores <- melt(scores)
 
-# boxplots
+# visualise error scores (boxplots)
 #png("scores_boxplots.png", width = 10, height = 10, units = "cm", res = 300)
 p <- ggplot(melt.scores, aes(factor(variable), value)) 
 p + geom_boxplot() + 
   theme_bw() + xlab("") + ylab("")#+ facet_wrap(~variable, scale="free")
 #dev.off()
 
-# scatter plots
-# lattice-way
+# visualise scatter plots (lattice-way)
 lattice.plots <- lapply(seq(ncol(pred.vals)), function(i) {
   
   panel.name <- strsplit(names(mod.stck.eval)[i], "_")[[1]][4]
