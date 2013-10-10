@@ -1,6 +1,8 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+
+///////////////// linear model functions //////////////////////////////////
 // [[Rcpp::export]]
 double corC(NumericVector x, NumericVector y) {
   int nx = x.size(), ny = y.size();
@@ -111,4 +113,47 @@ List respLmParam(NumericMatrix x, NumericMatrix y, int cell) {
   }
   
   return lmC_out;
+}
+
+///////////////// index of agreement functions ////////////////////////////
+// [[Rcpp::export]]
+NumericVector findudC(NumericVector x) {
+  NumericVector v = diff(x);
+  NumericVector z = v.size();
+  NumericVector mm(v.size(), -1.0);
+  NumericVector pp(v.size(), 1.0);
+  NumericVector res = ifelse( v > z, pp, mm);
+  return res;
+}
+
+// [[Rcpp::export]]
+double iodaC(NumericVector x, NumericVector y) {
+  NumericVector hh(x.size(), 1.0);
+  NumericVector mm(x.size(), 0.0);
+  NumericVector e = ifelse(findudC(x) == findudC(y), hh, mm);
+  double m = mean(e);
+  return m;
+}
+
+// [[Rcpp::export]]
+NumericVector iodaSumC(NumericMatrix pred_vals, NumericMatrix resp_vals) {
+  // Number of rows of input matrices
+  int nrow_pred = pred_vals.nrow(), nrow_resp = resp_vals.nrow();
+  
+  // Loop through all predictor cells
+  NumericVector ioda_sum(nrow_pred);
+  for (int i = 0; i < nrow_pred; i++) {
+    
+    NumericVector ioda(nrow_resp);
+    for (int j = 0; j < nrow_resp; j++) {
+      
+      ioda[j] = iodaC(pred_vals(i, _), resp_vals(j, _));
+      
+    }
+    
+    // Sum up IOA values of current predictor cell
+    ioda_sum[i] = sum(ioda);
+  }
+
+  return ioda_sum;
 }

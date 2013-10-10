@@ -17,3 +17,15 @@ respLmParam <- function(x, y, cell) {
     .Call('Reot_respLmParam', PACKAGE = 'Reot', x, y, cell)
 }
 
+findudC <- function(x) {
+    .Call('Reot_findudC', PACKAGE = 'Reot', x)
+}
+
+iodaC <- function(x, y) {
+    .Call('Reot_iodaC', PACKAGE = 'Reot', x, y)
+}
+
+iodaSumC <- function(pred_vals, resp_vals) {
+    .Call('Reot_iodaSumC', PACKAGE = 'Reot', pred_vals, resp_vals)
+}
+

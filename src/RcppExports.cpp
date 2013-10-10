@@ -51,3 +51,35 @@ BEGIN_RCPP
     return Rcpp::wrap(__result);
 END_RCPP
 }
+// findudC
+NumericVector findudC(NumericVector x);
+RcppExport SEXP Reot_findudC(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    NumericVector x = Rcpp::as<NumericVector >(xSEXP);
+    NumericVector __result = findudC(x);
+    return Rcpp::wrap(__result);
+END_RCPP
+}
+// iodaC
+double iodaC(NumericVector x, NumericVector y);
+RcppExport SEXP Reot_iodaC(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    NumericVector x = Rcpp::as<NumericVector >(xSEXP);
+    NumericVector y = Rcpp::as<NumericVector >(ySEXP);
+    double __result = iodaC(x, y);
+    return Rcpp::wrap(__result);
+END_RCPP
+}
+// iodaSumC
+NumericVector iodaSumC(NumericMatrix pred_vals, NumericMatrix resp_vals);
+RcppExport SEXP Reot_iodaSumC(SEXP pred_valsSEXP, SEXP resp_valsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    NumericMatrix pred_vals = Rcpp::as<NumericMatrix >(pred_valsSEXP);
+    NumericMatrix resp_vals = Rcpp::as<NumericMatrix >(resp_valsSEXP);
+    NumericVector __result = iodaSumC(pred_vals, resp_vals);
+    return Rcpp::wrap(__result);
+END_RCPP
+}

@@ -6,6 +6,7 @@ EotCycle <- function(pred,
                      write.out,
                      path.out,
                      names.out,
+                     type,
                      #n.cores = NULL,
                      ...) {
   
@@ -24,11 +25,17 @@ EotCycle <- function(pred,
   # Extract pixel entries from RasterStack objects
   pred.vals <- getValues(pred)
   resp.vals <- getValues(resp)
+  type <- type[1]
   
   # Calculate and summarize R-squared per pred pixel
   cat("Calculating linear model ...", "\n")
-  x <- predRsquaredSum(pred_vals = pred.vals, resp_vals = resp.vals, 
-                       standardised = standardised)
+  type <- type[1]
+  if (type == "rsq") {
+    x <- predRsquaredSum(pred_vals = pred.vals, resp_vals = resp.vals, 
+                         standardised = standardised)
+  } else {
+    x <- iodaSumC(pred_vals = pred.vals, resp_vals = resp.vals)
+  }
   # Replace missing values (land masses) with 0
   #x[which(is.na(x))] <- 0 
   
