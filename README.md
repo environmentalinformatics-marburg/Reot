@@ -3,7 +3,7 @@ Reot
 
 ### Empirical Orthogonal Teleconnections in R
 
-for detailed descriptions of the methodolgy please have a look at:
+for detailed descriptions of the algorithm & methodolgy please have a look at:
 
 **Empirical Orthogonal Teleconnections**   
 H. M. van den Dool, S. Saha, Å Johansson   
@@ -112,7 +112,7 @@ grid.arrange(p1, p2, p3, p4,
 
 ====
 
-#### Example II: downscale 8 km resolution GIMMS NDVI to 250 m resolution MODIS NDVI
+#### Example II: downscale 8 km GIMMS NDVI to 250 m MODIS NDVI
 
 
 ```S
