@@ -105,7 +105,7 @@ grid.arrange(p1, p2, p3, p4,
              heights = 1, ncol = 2)
 ```
 
-![plot of chunk Fig. 6 van den Dool](figure/Fig. 6 van den Dool.png) 
+![plot of chunk Fig_6_van_den_Dool](figure/Fig_6_van_den_Dool.png) 
 
 
 ###
@@ -181,7 +181,7 @@ p + geom_boxplot() +
   theme_bw() + xlab("") + ylab("")#+ facet_wrap(~variable, scale="free")
 ```
 
-![plot of chunk downscale GIMMS I](figure/downscale GIMMS I.png) 
+![plot of chunk downscale_GIMMS_I](figure/downscale_GIMMS_I.png) 
 
 ```r
 #dev.off()
@@ -240,7 +240,7 @@ out <- Reduce(outLayout, lattice.plots)
 print(out)
 ```
 
-![plot of chunk downscale GIMMS II](figure/downscale GIMMS II.png) 
+![plot of chunk downscale_GIMMS_II](figure/downscale_GIMMS_II.png) 
 
 ```r
 #dev.off()
