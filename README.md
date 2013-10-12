@@ -23,7 +23,7 @@ Oxford University Press, Oxford, New York (2007)
 
 #### Example I: recreate figure 6 from van den Dool et al. (2000)
 
-```r
+```S
 library(Reot)
 library(rworldmap)
 library(rgdal)
@@ -58,7 +58,7 @@ modes <- eot(pred = vdendool, resp = NULL, n = 4,
 ## max rsq value: 16459
 ```
 
-```r
+```S
 
 ster <- CRS("+proj=stere +lat_0=90 +lon_0=-45")
 
@@ -115,7 +115,7 @@ grid.arrange(p1, p2, p3, p4,
 #### Example II: downscale 8 km GIMMS NDVI to 250 m MODIS NDVI
 
 
-```r
+```S
 library(reshape)
 library(ggplot2)
 
@@ -151,7 +151,7 @@ mode <- eot(pred = gimms.stck.pred,
 ## max rsq value: 9540
 ```
 
-```r
+```S
 
 ### evaluate prediction
 ts.mode.eval <- gimms.stck.eval[mode[[1]][[1]]$max.xy]
@@ -181,7 +181,7 @@ melt.scores <- melt(scores)
 Box-Whisker plot of error scores:
 
 
-```r
+```S
 # boxplots
 #png("scores_boxplots.png", width = 10, height = 10, units = "cm", res = 300)
 p <- ggplot(melt.scores, aes(factor(variable), value)) 
@@ -191,7 +191,7 @@ p + geom_boxplot() +
 
 ![plot of chunk downscale_GIMMS_I](figure/downscale_GIMMS_I.png) 
 
-```r
+```S
 #dev.off()
 ```
 
@@ -201,7 +201,7 @@ p + geom_boxplot() +
 Scatterplot of predicted ~ observed for each scene:
 
 
-```r
+```S
 # scatter plots
 # lattice-way
 lattice.plots <- lapply(seq(ncol(pred.vals)), function(i) {
@@ -254,7 +254,7 @@ print(out)
 
 ![plot of chunk downscale_GIMMS_II](figure/downscale_GIMMS_II.png) 
 
-```r
+```S
 #dev.off()
 ```
 
@@ -264,7 +264,7 @@ print(out)
 Plot 5000 worst predicted pixels onto NDVI map (brown = underprediction, purple = overprediction):
 
 
-```r
+```S
 ### plot pixels of worst fit spatially
 plotResid <- function(sp.obj, 
                       pred.vals, 
@@ -331,7 +331,7 @@ print(out.res)
 
 ![plot of chunk downscale_GIMMS_III](figure/downscale_GIMMS_III.png) 
 
-```r
+```S
 #dev.off()
 ```
 
