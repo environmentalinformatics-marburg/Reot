@@ -58,7 +58,7 @@ modes <- eot(pred = vdendool, resp = NULL, n = 4,
 ## max rsq value: 16459
 ```
 
-```r
+```S
 
 ster <- CRS("+proj=stere +lat_0=90 +lon_0=-45")
 
@@ -110,12 +110,12 @@ grid.arrange(p1, p2, p3, p4,
 ![plot of chunk Fig_6_van_den_Dool](figure/Fig_6_van_den_Dool.png) 
 
 
-###
+====
 
 #### Example II: downscale 8 km resolution GIMMS NDVI to 250 m resolution MODIS NDVI
 
 
-```r
+```S
 library(reshape)
 library(ggplot2)
 
@@ -151,7 +151,7 @@ mode <- eot(pred = gimms.stck.pred,
 ## max rsq value: 10305
 ```
 
-```r
+```S
 
 ### evaluate prediction
 ts.mode.eval <- gimms.stck.eval[mode[[1]][[1]]$max.xy]
@@ -185,13 +185,13 @@ p + geom_boxplot() +
 
 ![plot of chunk downscale_GIMMS_I](figure/downscale_GIMMS_I.png) 
 
-```r
+```S
 #dev.off()
 ```
 
 
 
-```r
+```S
 # scatter plots
 # lattice-way
 lattice.plots <- lapply(seq(ncol(pred.vals)), function(i) {
@@ -244,7 +244,9 @@ print(out)
 
 ![plot of chunk downscale_GIMMS_II](figure/downscale_GIMMS_II.png) 
 
-```r
+```S
 #dev.off()
 ```
 
+
+====
