@@ -23,7 +23,7 @@ Oxford University Press, Oxford, New York (2007)
 
 #### Example I: recreate figure 6 from van den Dool et al. (2000)
 
-```S
+```r
 library(Reot)
 library(rworldmap)
 library(rgdal)
@@ -58,7 +58,7 @@ modes <- eot(pred = vdendool, resp = NULL, n = 4,
 ## max rsq value: 16459
 ```
 
-```S
+```r
 
 ster <- CRS("+proj=stere +lat_0=90 +lon_0=-45")
 
@@ -115,7 +115,7 @@ grid.arrange(p1, p2, p3, p4,
 #### Example II: downscale 8 km GIMMS NDVI to 250 m MODIS NDVI
 
 
-```S
+```r
 library(reshape)
 library(ggplot2)
 
@@ -125,7 +125,7 @@ data(gimmsKiliNDVI)
 # create training and validation sets
 set.seed(123)
 layer <- sample(c(0,1,2,3), nlayers(modisKiliNDVI), replace = TRUE)
-month <- sample(12, 12, replace = FALSE)
+month <- sort(sample(12, 12, replace = FALSE))
 
 pred.ind1 <- (layer * 12 + month)[1:12]
 
@@ -143,15 +143,15 @@ mode <- eot(pred = gimms.stck.pred,
 ## Calculating linear model ... 
 ## Locating 1. EOT ...
 ## location: 37.71 -3.25 
-## max rsq value: 24443 
+## max rsq value: 23041 
 ## 
 ## Calculating linear model ... 
 ## Locating 2. EOT ...
-## location: 37.28 -3.323 
-## max rsq value: 10305
+## location: 37.42 -3.395 
+## max rsq value: 9540
 ```
 
-```S
+```r
 
 ### evaluate prediction
 ts.mode.eval <- gimms.stck.eval[mode[[1]][[1]]$max.xy]
@@ -175,7 +175,13 @@ Rsq <- R * R
 # visualise error scores
 scores <- data.frame(ME, MAE, RMSE, R, Rsq)
 melt.scores <- melt(scores)
+```
 
+
+Box-Whisker plot of error scores:
+
+
+```r
 # boxplots
 #png("scores_boxplots.png", width = 10, height = 10, units = "cm", res = 300)
 p <- ggplot(melt.scores, aes(factor(variable), value)) 
@@ -185,13 +191,17 @@ p + geom_boxplot() +
 
 ![plot of chunk downscale_GIMMS_I](figure/downscale_GIMMS_I.png) 
 
-```S
+```r
 #dev.off()
 ```
 
 
+====
 
-```S
+Scatterplot of predicted ~ observed for each scene:
+
+
+```r
 # scatter plots
 # lattice-way
 lattice.plots <- lapply(seq(ncol(pred.vals)), function(i) {
@@ -244,7 +254,84 @@ print(out)
 
 ![plot of chunk downscale_GIMMS_II](figure/downscale_GIMMS_II.png) 
 
-```S
+```r
+#dev.off()
+```
+
+
+====
+
+Plot 5000 worst predicted pixels onto NDVI map (brown = underprediction, purple = overprediction):
+
+
+```r
+### plot pixels of worst fit spatially
+plotResid <- function(sp.obj, 
+                      pred.vals, 
+                      resp.vals, 
+                      txt = "hallo",
+                      #what = c("lower", "upper"),  
+                      n = 1000) {
+  
+  lm1 <- lm(pred.vals ~ resp.vals)
+
+  resids <- sort(lm1$residuals)
+  lowest <- resids[1:n]
+  highest <- resids[(length(resids) - (n - 1)):length(resids)]
+  
+  lowest.loc <- xyFromCell(mod.predicted, as.integer(names(lowest)))
+  highest.loc <- xyFromCell(mod.predicted, as.integer(names(highest)))
+  
+  clrs.ndvi <- colorRampPalette(brewer.pal(9, "YlGn"))
+  clrs.resids <- brewer.pal(9, "PuOr")
+  
+  lev <- spplot(sp.obj, col.regions = clrs.ndvi(1200), 
+                at = seq(-1000, 10000, 10), as.table = TRUE,
+                colorkey = list(space = "top", width = 1, height = 0.75),
+                main = "NDVI * 10000")
+  pts.low <- xyplot(lowest.loc[, 2] ~ lowest.loc[, 1], 
+                    pch = ".", col = clrs.resids[1])
+  pts.high <- xyplot(highest.loc[, 2] ~ highest.loc[, 1], 
+                     pch = ".", col = clrs.resids[9],
+                     panel = function(...) {
+                       panel.xyplot(...)
+                       panel.text(labels = txt, 
+                                  x = 37.65, y = -2.86, cex = 0.7)})
+  #ptext <- layer(panel.text(labels = txt, x = 38, y = -2.85, cex = 0.7))
+  
+  out <- lev + as.layer(pts.low) + as.layer(pts.high) #+ ptext
+    
+  
+  return(out)
+  
+}
+
+resid.plot <- lapply(seq(ncol(pred.vals)), function(i) {
+  
+  panel.name <- strsplit(names(mod.stck.eval)[i], "_")[[1]][4]
+  
+  plotResid(sp.obj = mod.predicted[[i]],
+            pred.vals = pred.vals[, i],
+            resp.vals = obs.vals[, i],
+            txt = panel.name,
+            n = 2500) 
+})
+
+outLayout <- function(x, y) {
+  update(c(x, y, 
+           layout = c(3, length(resid.plot)/3)), 
+         between = list(y = 0.3, x = 0.3))
+}
+
+out.res <- Reduce(outLayout, resid.plot)
+
+#png("resids.png", width = 19, height = 27, units = "cm", res = 300)
+print(out.res) 
+```
+
+![plot of chunk downscale_GIMMS_III](figure/downscale_GIMMS_III.png) 
+
+```r
 #dev.off()
 ```
 
