@@ -20,7 +20,9 @@ Oxford University Press, Oxford, New York (2007)
 ### A few examples
 
 #### Example I: recreate figure 6 from van den Dool et al. (2000)
-```{r}
+
+```r
+library(Reot)
 library(rworldmap)
 library(rgdal)
 library(rgeos)
@@ -30,6 +32,31 @@ data(coastsCoarse)
 
 modes <- eot(pred = vdendool, resp = NULL, n = 4,
              standardised = FALSE) 
+```
+
+```
+## Calculating linear model ... 
+## Locating 1. EOT ...
+## location: -35 77.67 
+## max rsq value: 52001 
+## 
+## Calculating linear model ... 
+## Locating 2. EOT ...
+## location: -165 43.15 
+## max rsq value: 39002 
+## 
+## Calculating linear model ... 
+## Locating 3. EOT ...
+## location: 85 67.81 
+## max rsq value: 19014 
+## 
+## Calculating linear model ... 
+## Locating 4. EOT ...
+## location: -25 53.01 
+## max rsq value: 16459
+```
+
+```r
 
 ster <- CRS("+proj=stere +lat_0=90 +lon_0=-45")
 
@@ -78,11 +105,15 @@ grid.arrange(p1, p2, p3, p4,
              heights = 1, ncol = 2)
 ```
 
+![plot of chunk Fig. 6 van den Dool](figure/Fig. 6 van den Dool.png) 
+
+
 ###
 
 #### Example II: downscale 8 km resolution GIMMS NDVI to 250 m resolution MODIS NDVI
 
-```{r}
+
+```r
 library(reshape)
 library(ggplot2)
 
@@ -104,6 +135,21 @@ gimms.stck.eval <- gimmsKiliNDVI[[pred.ind1]]
 # calculate eot (n = 2 is needed because of a bug)
 mode <- eot(pred = gimms.stck.pred,
             resp = mod.stck.pred, n = 2)
+```
+
+```
+## Calculating linear model ... 
+## Locating 1. EOT ...
+## location: 37.71 -3.25 
+## max rsq value: 24443 
+## 
+## Calculating linear model ... 
+## Locating 2. EOT ...
+## location: 37.28 -3.323 
+## max rsq value: 10305
+```
+
+```r
 
 ### evaluate prediction
 ts.mode.eval <- gimms.stck.eval[mode[[1]][[1]]$max.xy]
@@ -133,8 +179,17 @@ melt.scores <- melt(scores)
 p <- ggplot(melt.scores, aes(factor(variable), value)) 
 p + geom_boxplot() + 
   theme_bw() + xlab("") + ylab("")#+ facet_wrap(~variable, scale="free")
-#dev.off()
+```
 
+![plot of chunk downscale GIMMS I](figure/downscale GIMMS I.png) 
+
+```r
+#dev.off()
+```
+
+
+
+```r
 # scatter plots
 # lattice-way
 lattice.plots <- lapply(seq(ncol(pred.vals)), function(i) {
@@ -183,5 +238,11 @@ out <- Reduce(outLayout, lattice.plots)
 
 #png("scatter.png", width = 19, height = 27, units = "cm", res = 300)
 print(out)
+```
+
+![plot of chunk downscale GIMMS II](figure/downscale GIMMS II.png) 
+
+```r
 #dev.off()
 ```
+
