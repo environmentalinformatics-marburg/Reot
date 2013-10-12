@@ -15,13 +15,15 @@ H. M. van den Dool
 Oxford University Press, Oxford, New York (2007)    
 [http://www.oup.com/uk/catalogue/?ci=9780199202782](http://www.oup.com/uk/catalogue/?ci=9780199202782)
 
-###
+====
 
 ### A few examples
 
+====
+
 #### Example I: recreate figure 6 from van den Dool et al. (2000)
 
-```r
+```S
 library(Reot)
 library(rworldmap)
 library(rgdal)
