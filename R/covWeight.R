@@ -1,5 +1,5 @@
-covWeight <- function(y, weights) {
+covWeight <- function(y, weights, ...) {
   
-  cov.wt(y, weights, cor = TRUE)
+  cov.wt(na.exclude(y), weights, cor = TRUE, ...)
   
 }

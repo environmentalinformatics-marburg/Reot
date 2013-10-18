@@ -9,15 +9,16 @@ denoise <- function(data,
   stopifnot(require(doParallel))
   
   x <- data[]
+  #x[is.na(x)] <- 0
   
   # PCA
   if (isTRUE(weighted)) { 
     #w <- getWeights(data)
     #cm <- covWeight(x, getWeights(data))
-    pca <- princomp(x, covmat = covWeight(x, getWeights(data)), 
-                    scores = TRUE)
+    pca <- princomp(~ x, covmat = covWeight(x, getWeights(data)), 
+                    scores = TRUE, na.action = na.exclude)
   } else {
-    pca <- princomp(x, scores = TRUE)
+    pca <- princomp(~ x, scores = TRUE, na.action = na.exclude)
   }
   
   if (is.null(k)) 
