@@ -44,6 +44,7 @@ EotCycle <- function(pred,
   cat("Locating ", n, ". EOT ...", "\n", sep = "")
   maxxy.all <- which(x == max(x, na.rm = TRUE))
   maxxy <- maxxy.all[1]
+  expl.var <- (x[maxxy] / ncell(resp)) / mean(calc(resp, fun = var)[]) * 100
   
   if (length(maxxy.all) != 1) {
     #return(NULL)
@@ -54,9 +55,7 @@ EotCycle <- function(pred,
 
   if (print.console) {
     cat("Location:", xyFromCell(pred, maxxy), "\n", sep = " ")
-    cat("Expl. variance (%):", 
-        (x[maxxy] / ncell(resp)) / mean(calc(resp, fun = var)[]) * 100, 
-        "\n", sep = " ")
+    cat("Expl. variance (%):", expl.var, "\n", sep = " ")
   }
   
   xy <- xyFromCell(pred, maxxy)
@@ -175,6 +174,7 @@ EotCycle <- function(pred,
     # Output returned by function
     out <- list(eot.series = eot.ts,
                 max.xy = maxxy,
+                exp.var = expl.var,
                 loc.eot = location.df,
                 r.predictor = rst.pred.r,
                 rsq.predictor = rst.pred.rsq,
@@ -215,6 +215,7 @@ EotCycle <- function(pred,
       rm(list = c("eot.ts",
                   "maxxy",
                   "location.df",
+                  "expl.var",
                   "rst.pred.r",
                   "rst.pred.rsq",
                   "rst.pred.rsq.sums",
