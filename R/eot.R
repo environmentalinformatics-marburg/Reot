@@ -8,6 +8,7 @@ eot <- function(pred,
                 cycle.window = NULL,
                 reduce.both = FALSE, 
                 type = c("rsq", "ioa"),
+                print.console = TRUE,
                 #n.cores = NULL,
                 ...) {
   
@@ -47,6 +48,7 @@ eot <- function(pred,
                              standardised = standardised, 
                              write.out = write.out,
                              path.out = path.out, 
+                             print.console = print.console,
                              #n.cores = n.cores,
                              names.out = if (!is.null(names.out) | write.out) {
                                names.out[ceiling(i/cycle.window)]
@@ -76,7 +78,8 @@ eot <- function(pred,
           type = type,
           standardised = standardised, 
           write.out = write.out,
-          path.out = path.out, 
+          path.out = path.out,  
+          print.console = print.console,
           names.out = if (!is.null(names.out) | write.out) {
             names.out[ceiling(i/cycle.window)]
           } else {

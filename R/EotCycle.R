@@ -7,6 +7,7 @@ EotCycle <- function(pred,
                      path.out,
                      names.out,
                      type,
+                     print.console,
                      #n.cores = NULL,
                      ...) {
   
@@ -51,10 +52,12 @@ EotCycle <- function(pred,
         USING ONLY THE FIRST!\n\n")
   } #else {
 
-  cat("Location:", xyFromCell(pred, maxxy), "\n", sep = " ")
-  cat("Expl. variance (%):", 
-      (x[maxxy] / ncell(resp)) / mean(calc(resp, fun = var)[]) * 100, 
-      "\n", sep = " ")
+  if (print.console) {
+    cat("Location:", xyFromCell(pred, maxxy), "\n", sep = " ")
+    cat("Expl. variance (%):", 
+        (x[maxxy] / ncell(resp)) / mean(calc(resp, fun = var)[]) * 100, 
+        "\n", sep = " ")
+  }
   
   xy <- xyFromCell(pred, maxxy)
   location.df <- as.data.frame(cbind(xy, paste("EOT", 
