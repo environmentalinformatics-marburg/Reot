@@ -28,7 +28,7 @@ EotCycle <- function(pred,
   type <- type[1]
   
   # Calculate and summarize R-squared per pred pixel
-  cat("Calculating linear model ...", "\n")
+  cat("\nCalculating linear model ...", "\n")
   type <- type[1]
   if (type == "rsq") {
     x <- predRsquaredSum(pred_vals = pred.vals, resp_vals = resp.vals, 
@@ -44,24 +44,31 @@ EotCycle <- function(pred,
   maxxy.all <- which(x == max(x, na.rm = TRUE))
   maxxy <- maxxy.all[1]
   
-  cat("location:", xyFromCell(pred, maxxy), "\n", sep = " ")
-  cat("max rsq value:", x[x == max(x, na.rm = TRUE)], "\n\n", sep = " ")
-  
   if (length(maxxy.all) != 1) {
     #return(NULL)
-    cat("LOCATION OF EOT AMBIGUOUS! MULTIPLE POSSIBLE LOCATIONS DETECTED, USING ONLY THE FIRST!\n\n")
+    cat("WARNING:", "\n",
+        "LOCATION OF EOT AMBIGUOUS! MULTIPLE POSSIBLE LOCATIONS DETECTED, 
+        USING ONLY THE FIRST!\n\n")
   } #else {
+
+  cat("Location:", xyFromCell(pred, maxxy), "\n", sep = " ")
+  cat("Expl. variance (%):", 
+      (x[maxxy] / ncell(resp)) / mean(calc(resp, fun = var)[]) * 100, 
+      "\n", sep = " ")
   
   xy <- xyFromCell(pred, maxxy)
   location.df <- as.data.frame(cbind(xy, paste("EOT", 
                                                sprintf("%02.f", n), 
                                                sep = "_"),
+                                     (x[maxxy] / ncell(resp)) / 
+                                       mean(calc(resp, fun = var)[]) * 100,
                                      if (length(maxxy.all) != 1) 
                                        "ambiguous" else "ok"),
                                stringsAsFactors = FALSE)
-  names(location.df) <- c("x", "y", "EOT", "comment")
+  names(location.df) <- c("x", "y", "EOT", "expl_var", "comment")
   mode(location.df$x) <- "numeric"
   mode(location.df$y) <- "numeric"
+  mode(location.df$expl_var) <- "numeric"
   
   ### Regression of most explanatory pred pixel with resp pixels
     
@@ -160,7 +167,6 @@ EotCycle <- function(pred,
     brck.pred.resids[] <- matrix(sapply(pred.lm.param.p, "[[", 4), 
                                  ncol = nlayers(pred), byrow = TRUE)
     
-    
     ### Output
     
     # Output returned by function
@@ -192,8 +198,8 @@ EotCycle <- function(pred,
       df.name <- paste(names.out, "eot_locations.csv", sep = "_")
       
       write.table(location.df, col.names = FALSE,
-                paste(path.out, df.name, sep = "/"), 
-                row.names = FALSE, append = TRUE, sep = ",")
+                  paste(path.out, df.name, sep = "/"), 
+                  row.names = FALSE, append = TRUE, sep = ",")
       
       #registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
       foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
