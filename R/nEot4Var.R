@@ -1,4 +1,4 @@
-nEot4Var <- function(eot.list, var = 1) {
+nEot4Var <- function(eot.list, var = 100) {
   expl.var <- sapply(seq(eot.list[[1]]), function(i) {
     eot.list[[1]][[i]]$exp.var
   })
