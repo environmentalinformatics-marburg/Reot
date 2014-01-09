@@ -29,7 +29,10 @@ EotCycle <- function(pred,
   type <- type[1]
   
   # Calculate and summarize R-squared per pred pixel
-  cat("\nCalculating linear model ...", "\n")
+  if (print.console) {
+    cat("\nCalculating linear model ...", "\n")
+  }
+  
   type <- type[1]
   if (type == "rsq") {
     x <- predRsquaredSum(pred_vals = pred.vals, resp_vals = resp.vals, 
@@ -37,33 +40,34 @@ EotCycle <- function(pred,
   } else {
     x <- iodaSumC(pred_vals = pred.vals, resp_vals = resp.vals)
   }
-  # Replace missing values (land masses) with 0
-  #x[which(is.na(x))] <- 0 
   
   # Identify pred pixel with highest sum of r.squared
-  cat("Locating ", n, ". EOT ...", "\n", sep = "")
+  if (print.console) {
+    cat("Locating ", n, ". EOT ...", "\n", sep = "")
+  }
+  
   maxxy.all <- which(x == max(x, na.rm = TRUE))
   maxxy <- maxxy.all[1]
-  expl.var <- (x[maxxy] / ncell(resp)) / mean(calc(resp, fun = var)[]) * 100
+  expl.var <- (x[maxxy] / ncell(resp)) / mean(calc(resp, fun = var)[])
   
   if (length(maxxy.all) != 1) {
-    #return(NULL)
-    cat("WARNING:", "\n",
-        "LOCATION OF EOT AMBIGUOUS! MULTIPLE POSSIBLE LOCATIONS DETECTED, 
+    if (print.console) {
+      cat("WARNING:", "\n",
+          "LOCATION OF EOT AMBIGUOUS! MULTIPLE POSSIBLE LOCATIONS DETECTED, 
         USING ONLY THE FIRST!\n\n")
-  } #else {
+    }
+  }
 
   if (print.console) {
     cat("Location:", xyFromCell(pred, maxxy), "\n", sep = " ")
-    cat("Expl. variance (%):", expl.var, "\n", sep = " ")
+    cat("Expl. variance (%):", expl.var * 100, "\n", sep = " ")
   }
   
   xy <- xyFromCell(pred, maxxy)
   location.df <- as.data.frame(cbind(xy, paste("EOT", 
                                                sprintf("%02.f", n), 
                                                sep = "_"),
-                                     (x[maxxy] / ncell(resp)) / 
-                                       mean(calc(resp, fun = var)[]) * 100,
+                                     expl.var,
                                      if (length(maxxy.all) != 1) 
                                        "ambiguous" else "ok"),
                                stringsAsFactors = FALSE)
