@@ -28,11 +28,11 @@ eot <- function(pred,
     cycle.window <- nlayers(pred)
   
   if (!standardised) {
-    t <- mean(apply(getValues(resp), 1, var), na.rm = TRUE)
-    s <- mean(apply(getValues(resp), 2, var), na.rm = TRUE)
+    t <- mean(apply(getValues(resp), 1, var, na.rm = TRUE), na.rm = TRUE)
+    s <- mean(apply(getValues(resp), 2, var, na.rm = TRUE), na.rm = TRUE)
     orig.var <- t * s
   } else {
-    orig.var <- var(as.vector(getValues(resp)))
+    orig.var <- var(as.vector(getValues(resp)), na.rm = TRUE)
   }
   
   
