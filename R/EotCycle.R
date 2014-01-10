@@ -151,9 +151,11 @@ EotCycle <- function(pred,
                                  ncol = nlayers(pred), byrow = TRUE)
   
   if (!standardised) {
-    expl.var <- (x[maxxy] / var(resp.vals[maxxy, ])) / nrow(resp.vals)
+    tv <- mean(apply(resp.vals, 1, var), na.rm = TRUE)
+    sv <- mean(apply(resp.vals, 2, var), na.rm = TRUE)
+    expl.var <- x[maxxy] / (tv * sv)
   } else {
-    expl.var <- x[maxxy] / nrow(resp.vals)
+    expl.var <- x[maxxy] / var(as.vector(resp.vals))
   }
   
   if (print.console) {
