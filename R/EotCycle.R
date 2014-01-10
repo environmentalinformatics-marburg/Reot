@@ -48,8 +48,7 @@ EotCycle <- function(pred,
   
   maxxy.all <- which(x == max(x, na.rm = TRUE))
   maxxy <- maxxy.all[1]
-  expl.var <- (x[maxxy] / ncell(resp)) / 
-    mean(calc(mod.stck.pred, fun = var)[], na.rm = TRUE)
+  expl.var <- x[maxxy] / ncell(resp)
   
   if (length(maxxy.all) != 1) {
     if (print.console) {
