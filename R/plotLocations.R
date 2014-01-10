@@ -1,3 +1,7 @@
+#' A simple plotting routine to visualise the location of all identified base
+#' points colour coded according to eot mode (1 - k).
+#' 
+#' @export plotLocations
 plotLocations <- function(eot.obj, ...) {
 
   ### some helper functions especially for the grid layout

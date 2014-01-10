@@ -1,6 +1,7 @@
-### some helper functions especially for the grid layout
-### resizingTextGrob from 
-### http://ryouready.wordpress.com/2012/08/01/
+#' Some helper functions especially for the grid layout (from 
+#' http://ryouready.wordpress.com/2012/08/01/).
+#' 
+#' @export resizingTextGrob
 resizingTextGrob <- function(..., scale.fact = 1) {
   
   grob(tg = textGrob(...), cl = "resizingTextGrob", 

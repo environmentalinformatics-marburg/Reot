@@ -1,3 +1,6 @@
+#' Standard plotting routine for the results of eot().
+#' 
+#' @export plotEot
 plotEot <- function(eot.obj,
                     eot = 1,
                     pred.prm = "rsq.predictor",
