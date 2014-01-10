@@ -1,3 +1,9 @@
+#' Noise filtering through principal components. The user can either specify
+#' how many components to keep or can specify a minimum value for the variance that
+#' should be kept.
+
+#' 
+#' @export denoise
 denoise <- function(data,
                     k = NULL,
                     expl.var = 0.95,

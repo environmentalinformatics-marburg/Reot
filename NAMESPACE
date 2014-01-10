@@ -1,2 +1,3 @@
-useDynLib(Reot)
-exportPattern("^[[:alpha:]]+")
+export(anomalise)
+export(denoise)
+export(deseason)
