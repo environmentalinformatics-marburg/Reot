@@ -1,3 +1,5 @@
 export(anomalise)
+export(covWeight)
 export(denoise)
 export(deseason)
+export(getWeights)
