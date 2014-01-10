@@ -40,8 +40,7 @@ EotCycle <- function(pred,
   
   maxxy.all <- which(x == max(x, na.rm = TRUE))
   maxxy <- maxxy.all[1]
-  expl.var <- x[maxxy] / ncell(resp)
-  
+
   if (length(maxxy.all) != 1) {
     if (print.console) {
       cat("WARNING:", "\n",
@@ -52,21 +51,7 @@ EotCycle <- function(pred,
 
   if (print.console) {
     cat("Location:", xyFromCell(pred, maxxy), "\n", sep = " ")
-    cat("Expl. variance (%):", expl.var * 100, "\n", sep = " ")
   }
-  
-  xy <- xyFromCell(pred, maxxy)
-  location.df <- as.data.frame(cbind(xy, paste("EOT", 
-                                               sprintf("%02.f", n), 
-                                               sep = "_"),
-                                     expl.var,
-                                     if (length(maxxy.all) != 1) 
-                                       "ambiguous" else "ok"),
-                               stringsAsFactors = FALSE)
-  names(location.df) <- c("x", "y", "EOT", "expl_var", "comment")
-  mode(location.df$x) <- "numeric"
-  mode(location.df$y) <- "numeric"
-  mode(location.df$expl_var) <- "numeric"
   
   ### Regression of most explanatory pred pixel with resp pixels
     
@@ -164,6 +149,29 @@ EotCycle <- function(pred,
     # Residuals
     brck.pred.resids[] <- matrix(sapply(pred.lm.param.p, "[[", 4), 
                                  ncol = nlayers(pred), byrow = TRUE)
+  
+  if (!standardised) {
+    expl.var <- (x[maxxy] / var(resp.vals[maxxy, ])) / nrow(resp.vals)
+  } else {
+    expl.var <- x[maxxy] / nrow(resp.vals)
+  }
+  
+  if (print.console) {
+    cat("Expl. variance (%):", expl.var * 100, "\n", sep = " ")
+  }
+  
+  xy <- xyFromCell(pred, maxxy)
+  location.df <- as.data.frame(cbind(xy, paste("EOT", 
+                                               sprintf("%02.f", n), 
+                                               sep = "_"),
+                                     expl.var,
+                                     if (length(maxxy.all) != 1) 
+                                       "ambiguous" else "ok"),
+                               stringsAsFactors = FALSE)
+  names(location.df) <- c("x", "y", "EOT", "expl_var", "comment")
+  mode(location.df$x) <- "numeric"
+  mode(location.df$y) <- "numeric"
+  mode(location.df$expl_var) <- "numeric"
     
     ### Output
     

@@ -10,7 +10,7 @@ eot <- function(pred,
                 path.out = ".", 
                 names.out = NULL,
                 cycle.window = NULL,
-                reduce.both = TRUE, 
+                reduce.both = FALSE, 
                 type = c("rsq", "ioa"),
                 print.console = TRUE,
                 ...) {
