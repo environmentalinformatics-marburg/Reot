@@ -27,6 +27,14 @@ eot <- function(pred,
   if (is.null(cycle.window))
     cycle.window <- nlayers(pred)
   
+  if (!standardised) {
+    t <- mean(apply(getValues(resp), 1, var), na.rm = TRUE)
+    s <- mean(apply(getValues(resp), 2, var), na.rm = TRUE)
+    orig.var <- t * s
+  } else {
+    orig.var <- var(as.vector(getValues(resp)))
+  }
+  
   
   ### EOT
   
@@ -44,6 +52,7 @@ eot <- function(pred,
                              n = z, 
                              type = type,
                              standardised = standardised, 
+                             orig.var = orig.var,
                              write.out = write.out,
                              path.out = path.out, 
                              print.console = print.console,
@@ -74,6 +83,7 @@ eot <- function(pred,
           n = z, 
           type = type,
           standardised = standardised, 
+          orig.var = orig.var,
           write.out = write.out,
           path.out = path.out,  
           print.console = print.console,

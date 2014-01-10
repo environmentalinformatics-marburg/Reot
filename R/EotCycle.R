@@ -6,6 +6,7 @@ EotCycle <- function(pred,
                      resp.eq.pred = F,
                      n = 1,
                      standardised, 
+                     orig.var,
                      write.out,
                      path.out,
                      names.out,
@@ -150,13 +151,7 @@ EotCycle <- function(pred,
     brck.pred.resids[] <- matrix(sapply(pred.lm.param.p, "[[", 4), 
                                  ncol = nlayers(pred), byrow = TRUE)
   
-  if (!standardised) {
-    tv <- mean(apply(resp.vals, 1, var), na.rm = TRUE)
-    sv <- mean(apply(resp.vals, 2, var), na.rm = TRUE)
-    expl.var <- x[maxxy] / (tv * sv)
-  } else {
-    expl.var <- x[maxxy] / var(as.vector(resp.vals))
-  }
+    expl.var <- x[maxxy] / orig.var
   
   if (print.console) {
     cat("Expl. variance (%):", expl.var * 100, "\n", sep = " ")
