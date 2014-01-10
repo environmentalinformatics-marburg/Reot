@@ -1,3 +1,6 @@
+#' Calculates a single EOT and is controlled by the main eot() function
+#' 
+#' @export EotCycle
 EotCycle <- function(pred, 
                      resp, 
                      resp.eq.pred = F,
@@ -8,20 +11,9 @@ EotCycle <- function(pred,
                      names.out,
                      type,
                      print.console,
-                     #n.cores = NULL,
                      ...) {
   
-  
-  ### Environmental settings
-  
-  # Required packages and functions
-  lib <- c("raster", "doParallel", "Rcpp")
-  sapply(lib, function(...) stopifnot(require(..., character.only = T)))
-  
-  #sourceCpp("src/EotCppFun.cpp")
-  
-  
-  ### Identification of the most explanatory pred pixel
+    ### Identification of the most explanatory pred pixel
   
   # Extract pixel entries from RasterStack objects
   pred.vals <- getValues(pred)
@@ -208,13 +200,11 @@ EotCycle <- function(pred,
                   paste(path.out, df.name, sep = "/"), 
                   row.names = FALSE, append = TRUE, sep = ",")
       
-      #registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
       foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
                     rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
-              b = unlist(out.name)) %do% { #, .packages = "raster"
+              b = unlist(out.name)) %do% { 
                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
               }
-      #stopCluster(clstr)
       
       rm(list = c("eot.ts",
                   "maxxy",
@@ -274,12 +264,10 @@ EotCycle <- function(pred,
 #                 paste(path.out, df.name, sep = "/"), 
 #                 row.names = FALSE, append = TRUE, sep = ",")
 #       
-#       #registerDoParallel(clstr <- makeCluster(if (is.null(n.cores)) detectCores() else n.cores))
 #       foreach(a = c(rst.resp.r, rst.resp.rsq, rst.pred.rsq.sums, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
-#               b = unlist(out.name)) %dopar% { #, .packages = "raster")
+#               b = unlist(out.name)) %dopar% {
 #                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
 #                       }
-#       #stopCluster(clstr)
 #       
 #       rm(list = c("pred.vals",
 #                   "resp.vals",

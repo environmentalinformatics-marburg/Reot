@@ -7,5 +7,5 @@ Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 Description: More about what it does (maybe more than one line)
 License: GNU GPL (>=3)
-Depends: Rcpp (>= 0.10.3), mapdata, maps, gridExtra, latticeExtra, raster
+Depends: Rcpp (>= 0.10.3), mapdata, maps, gridExtra, latticeExtra, raster, foreach
 LinkingTo: Rcpp

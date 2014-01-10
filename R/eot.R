@@ -1,3 +1,7 @@
+#' The core function of the package, calculates EOT based on user-supplied
+#' predictor and (optional) response RasterStack.
+#' 
+#' @export eot
 eot <- function(pred, 
                 resp = NULL, 
                 n = 1, 
@@ -9,13 +13,7 @@ eot <- function(pred,
                 reduce.both = TRUE, 
                 type = c("rsq", "ioa"),
                 print.console = TRUE,
-                #n.cores = NULL,
                 ...) {
-  
-  
-  ### Environmental settings
-#   stopifnot(require(doParallel))
-#   if (is.null(n.cores)) detectCores() else n.cores
   
   # Duplicate predictor set in case predictor and response are identical
   if (is.null(resp)) {
@@ -49,7 +47,6 @@ eot <- function(pred,
                              write.out = write.out,
                              path.out = path.out, 
                              print.console = print.console,
-                             #n.cores = n.cores,
                              names.out = if (!is.null(names.out) | write.out) {
                                names.out[ceiling(i/cycle.window)]
                              } else {
@@ -100,8 +97,5 @@ eot <- function(pred,
     return(pred.eot)
     
   })
-  
-  # Return output list
-  #return(pred.eot)
   
 }
