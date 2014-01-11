@@ -151,10 +151,19 @@ EotCycle <- function(pred,
     brck.pred.resids[] <- matrix(sapply(pred.lm.param.p, "[[", 4), 
                                  ncol = nlayers(pred), byrow = TRUE)
   
-    expl.var <- x[maxxy] / orig.var
+    #expl.var <- x[maxxy] / orig.var
+  if (!standardised) {
+    t <- mean(apply(getValues(brck.resp.resids), 1, var, na.rm = TRUE), na.rm = TRUE)
+    s <- mean(apply(getValues(brck.resp.resids), 2, var, na.rm = TRUE), na.rm = TRUE)
+    resid.var <- t + s
+  } else {
+    resid.var <- var(as.vector(getValues(brck.resp.resids)), na.rm = TRUE)
+  }
+  
+  expl.var <- (orig.var - resid.var) / orig.var
   
   if (print.console) {
-    cat("Expl. variance (%):", expl.var * 100, "\n", sep = " ")
+    cat("Cum. expl. variance (%):", expl.var * 100, "\n", sep = " ")
   }
   
   xy <- xyFromCell(pred, maxxy)
@@ -165,10 +174,10 @@ EotCycle <- function(pred,
                                      if (length(maxxy.all) != 1) 
                                        "ambiguous" else "ok"),
                                stringsAsFactors = FALSE)
-  names(location.df) <- c("x", "y", "EOT", "expl_var", "comment")
+  names(location.df) <- c("x", "y", "EOT", "cum_expl_var", "comment")
   mode(location.df$x) <- "numeric"
   mode(location.df$y) <- "numeric"
-  mode(location.df$expl_var) <- "numeric"
+  mode(location.df$cum_expl_var) <- "numeric"
     
     ### Output
     
