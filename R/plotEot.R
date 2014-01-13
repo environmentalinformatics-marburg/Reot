@@ -25,14 +25,31 @@ plotEot <- function(eot.obj,
                            pch = 21, fill = "grey80", col = "black")
   
   if (isTRUE(add.map)) {
-    mm <- map("world", plot = F, fill = T, col = "grey70")
+    mm180 <- map("world", plot = F, fill = T, col = "grey70")
+    mm360 <- data.frame(map(plot = F, fill = T)[c("x","y")])
+    mm360 <- within(mm360, {
+      x <- ifelse(x < 0, x + 360, x)
+      x <- ifelse((x < 1) | (x > 359), NA, x)
+    })
+    
+    if (max(extent(eot.obj[[1]][[eot]][[pred.prm]])@xmax) > 180) {
+      mm.pred <- mm360
+    } else {
+      mm.pred <- mm180
+    }
+    
+    if (max(extent(eot.obj[[1]][[eot]][[resp.prm]])@xmax) > 180) {
+      mm.resp <- mm360
+    } else {
+      mm.resp <- mm180
+    }
   }
   
   px.pred <- ncell(eot.obj[[1]][[eot]]$r.predictor)
   px.resp <- ncell(eot.obj[[1]][[eot]]$r.response)
   
   pred.p <- spplot(eot.obj[[1]][[eot]][[pred.prm]], 
-                   mm = mm, maxpixels = px.pred,
+                   mm = mm.pred, maxpixels = px.pred,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
                    main = paste(pred.prm, "EOT", eot, sep = " "), 
@@ -47,7 +64,7 @@ plotEot <- function(eot.obj,
   if (show.eot.loc) pred.p <- pred.p + as.layer(eot.location.p)
   
   resp.p <- spplot(eot.obj[[1]][[eot]][[resp.prm]], 
-                   mm = mm, maxpixels = px.resp,
+                   mm = mm.resp, maxpixels = px.resp,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
                    main = paste(resp.prm, "EOT", eot, sep = " "), 
