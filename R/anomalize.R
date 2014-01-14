@@ -2,7 +2,7 @@
 #' overall mean of the stack, or a supplied reference raster.
 #' 
 #' @export anomalise
-anomalise <- function(x, 
+anomalize <- function(x, 
                       reference = NULL, 
                       ...) {
   
