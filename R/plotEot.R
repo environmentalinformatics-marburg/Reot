@@ -82,7 +82,10 @@ plotEot <- function(eot.obj,
                    type = "b", pch = 20, col = "black", 
                    ylab = "", xlab = "",
                    scales = list(tck = c(0.5, 0), x = list(axs = "i")), 
-                   main = paste("time series EOT", eot, sep = " ")) 
+                   main = paste("time series EOT", eot, 
+                                "- cumulative explained response domain variance:", 
+                                round(eot.obj[[1]][[eot]]$exp.var * 100, 2), 
+                                "%", sep = " ")) 
   
   if (anomalies) {
     eot.ts <- eot.ts + layer(panel.abline(h = 0, col = "grey40", lty = 3), 
