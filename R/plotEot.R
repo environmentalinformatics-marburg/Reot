@@ -3,7 +3,7 @@
 #' @export plotEot
 plotEot <- function(eot.obj,
                     eot = 1,
-                    pred.prm = "rsq.predictor",
+                    pred.prm = "r.predictor",
                     resp.prm = "rsq.response",
                     show.eot.loc = FALSE,
                     anomalies = TRUE,
