@@ -1,7 +1,7 @@
 useDynLib(Reot)
 exportPattern("^[[:alpha:]]+")
 export(EotCycle)
-export(anomalise)
+export(anomalize)
 export(covWeight)
 export(denoise)
 export(deseason)
