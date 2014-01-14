@@ -153,8 +153,10 @@ EotCycle <- function(pred,
   
     #expl.var <- x[maxxy] / orig.var
   if (!standardised) {
-    t <- mean(apply(getValues(brck.resp.resids), 1, var, na.rm = TRUE), na.rm = TRUE)
-    s <- mean(apply(getValues(brck.resp.resids), 2, var, na.rm = TRUE), na.rm = TRUE)
+    t <- mean(apply(getValues(brck.resp.resids), 1, var, na.rm = TRUE), 
+              na.rm = TRUE)
+    s <- mean(apply(getValues(brck.resp.resids), 2, var, na.rm = TRUE), 
+              na.rm = TRUE)
     resid.var <- t + s
   } else {
     resid.var <- var(as.vector(getValues(brck.resp.resids)), na.rm = TRUE)
@@ -202,10 +204,13 @@ EotCycle <- function(pred,
     
     # Output storage (optional)
     if (write.out) {
-      out.name <- lapply(c("pred_r", "pred_rsq", "pred_rsq_sums", "pred_int", "pred_slp", "pred_p", "pred_resids", 
-                           "resp_r", "resp_rsq", "resp_int", "resp_slp", "resp_p", "resp_resids"), 
+      out.name <- lapply(c("pred_r", "pred_rsq", "pred_rsq_sums", 
+                           "pred_int", "pred_slp", "pred_p", "pred_resids", 
+                           "resp_r", "resp_rsq", "resp_int", "resp_slp", 
+                           "resp_p", "resp_resids"), 
                          function(i) {
-                           paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
+                           paste(names.out, "eot", sprintf("%02.f", n), 
+                                 i, sep = "_")
                          })
       
       df.name <- paste(names.out, "eot_locations.csv", sep = "_")
@@ -214,10 +219,14 @@ EotCycle <- function(pred,
                   paste(path.out, df.name, sep = "/"), 
                   row.names = FALSE, append = TRUE, sep = ",")
       
-      foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, rst.pred.intercept, rst.pred.slp, rst.pred.p, brck.pred.resids,
-                    rst.resp.r, rst.resp.rsq, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
+      foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, 
+                    rst.pred.intercept, rst.pred.slp, rst.pred.p, 
+                    brck.pred.resids, rst.resp.r, rst.resp.rsq, 
+                    rst.resp.intercept, rst.resp.slp, rst.resp.p, 
+                    brck.resp.resids), 
               b = unlist(out.name)) %do% { 
-                writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
+                writeRaster(a, paste(path.out, b, sep = "/"), 
+                            format = "raster", overwrite = TRUE, ...)
               }
       
       rm(list = c("eot.ts",

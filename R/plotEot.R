@@ -78,14 +78,20 @@ plotEot <- function(eot.obj,
   
   if (show.eot.loc) resp.p <- resp.p + as.layer(eot.location.p)
   
+  ts.main <- paste("time series EOT", eot, 
+                   "- explained response domain variance:", 
+                   round(if (eot > 1) {
+                     eot.obj[[1]][[eot]]$exp.var * 100 -
+                       eot.obj[[1]][[eot - 1]]$exp.var * 100
+                     } else {
+                       eot.obj[[1]][[eot]]$exp.var * 100
+                       }, 2), "%", sep = " ")
+  
   eot.ts <- xyplot(eot.obj[[1]][[eot]]$eot.series[1, ] ~ times.vec,
                    type = "b", pch = 20, col = "black", 
                    ylab = "", xlab = "",
                    scales = list(tck = c(0.5, 0), x = list(axs = "i")), 
-                   main = paste("time series EOT", eot, 
-                                "- cumulative explained response domain variance:", 
-                                round(eot.obj[[1]][[eot]]$exp.var * 100, 2), 
-                                "%", sep = " ")) 
+                   main = ts.main)
   
   if (anomalies) {
     eot.ts <- eot.ts + layer(panel.abline(h = 0, col = "grey40", lty = 3), 
