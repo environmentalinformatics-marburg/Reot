@@ -7,6 +7,6 @@ nEot4Var <- function(eot.list, var = 0.9) {
     eot.list[[1]][[i]]$exp.var
   })
 
-  max(which(var - expl.var >= 0), na.rm = TRUE)
+  min(which(var - expl.var <= 0), na.rm = TRUE)
   
 }
