@@ -16,10 +16,10 @@ plotEot <- function(eot.obj,
 {
   
   if (is.null(times.vec)) 
-    times.vec <- seq(nlayers(eot.obj[[1]][[1]]$resid.response))
+    times.vec <- seq(nlayers(eot.obj[[1]]$resid.response))
   
-  xy <- xyFromCell(eot.obj[[1]][[eot]]$rsq.predictor, 
-                   cell = eot.obj[[1]][[eot]]$max.xy)
+  xy <- xyFromCell(eot.obj[[eot]]$rsq.predictor, 
+                   cell = eot.obj[[eot]]$max.xy)
   
   eot.location.p <- xyplot(xy[1, 2] ~ xy[1, 1], cex = 2,
                            pch = 21, fill = "grey80", col = "black")
@@ -32,23 +32,23 @@ plotEot <- function(eot.obj,
       x <- ifelse((x < 1) | (x > 359), NA, x)
     })
     
-    if (max(extent(eot.obj[[1]][[eot]][[pred.prm]])@xmax) > 180) {
+    if (max(extent(eot.obj[[eot]][[pred.prm]])@xmax) > 180) {
       mm.pred <- mm360
     } else {
       mm.pred <- mm180
     }
     
-    if (max(extent(eot.obj[[1]][[eot]][[resp.prm]])@xmax) > 180) {
+    if (max(extent(eot.obj[[eot]][[resp.prm]])@xmax) > 180) {
       mm.resp <- mm360
     } else {
       mm.resp <- mm180
     }
   }
   
-  px.pred <- ncell(eot.obj[[1]][[eot]]$r.predictor)
-  px.resp <- ncell(eot.obj[[1]][[eot]]$r.response)
+  px.pred <- ncell(eot.obj[[eot]]$r.predictor)
+  px.resp <- ncell(eot.obj[[eot]]$r.response)
   
-  pred.p <- spplot(eot.obj[[1]][[eot]][[pred.prm]], 
+  pred.p <- spplot(eot.obj[[eot]][[pred.prm]], 
                    mm = mm.pred, maxpixels = px.pred,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
@@ -63,7 +63,7 @@ plotEot <- function(eot.obj,
   
   if (show.eot.loc) pred.p <- pred.p + as.layer(eot.location.p)
   
-  resp.p <- spplot(eot.obj[[1]][[eot]][[resp.prm]], 
+  resp.p <- spplot(eot.obj[[eot]][[resp.prm]], 
                    mm = mm.resp, maxpixels = px.resp,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
@@ -81,13 +81,13 @@ plotEot <- function(eot.obj,
   ts.main <- paste("time series EOT", eot, 
                    "- explained response domain variance:", 
                    round(if (eot > 1) {
-                     eot.obj[[1]][[eot]]$exp.var * 100 -
-                       eot.obj[[1]][[eot - 1]]$exp.var * 100
+                     eot.obj[[eot]]$exp.var * 100 -
+                       eot.obj[[eot - 1]]$exp.var * 100
                      } else {
-                       eot.obj[[1]][[eot]]$exp.var * 100
+                       eot.obj[[eot]]$exp.var * 100
                        }, 2), "%", sep = " ")
   
-  eot.ts <- xyplot(eot.obj[[1]][[eot]]$eot.series[1, ] ~ times.vec,
+  eot.ts <- xyplot(eot.obj[[eot]]$eot.series[1, ] ~ times.vec,
                    type = "b", pch = 20, col = "black", 
                    ylab = "", xlab = "",
                    scales = list(tck = c(0.5, 0), x = list(axs = "i")), 

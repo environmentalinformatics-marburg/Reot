@@ -35,18 +35,18 @@ plotLocations <- function(eot.obj, ...) {
   
   ### plot function
   loc.df <- as.data.frame(do.call("rbind", 
-                                  lapply(seq(eot.obj[[1]]), function(i) {
-    xyFromCell(eot.obj[[1]][[i]]$rsq.predictor, 
-               cell = eot.obj[[1]][[i]]$max.xy)
+                                  lapply(seq(eot.obj), function(i) {
+    xyFromCell(eot.obj[[i]]$rsq.predictor, 
+               cell = eot.obj[[i]]$max.xy)
   })))
   
-  loc.df$eot <- paste("EOT", sprintf("%02.f", seq(eot.obj[[1]])), 
+  loc.df$eot <- paste("EOT", sprintf("%02.f", seq(eot.obj)), 
                       sep = "_")
   
   mm <- map("world", plot = FALSE, fill = TRUE)
-  px.pred <- ncell(eot.obj[[1]]$EOT_1$r.predictor)
+  px.pred <- ncell(eot.obj$EOT_1$r.predictor)
   
-  pred.p <- spplot(eot.obj[[1]]$EOT_1$rsq.predictor, 
+  pred.p <- spplot(eot.obj$EOT_1$rsq.predictor, 
                    mm = mm, maxpixels = px.pred,
                    colorkey = FALSE, 
                    col.regions = "grey50", panel = function(..., mm) {
@@ -60,7 +60,7 @@ plotLocations <- function(eot.obj, ...) {
         c = 70, l = 50, fixup = TRUE)
   }
   
-  clrs <- clrs.hcl(length(eot.obj[[1]]))
+  clrs <- clrs.hcl(length(eot.obj))
   
   points.p <- xyplot(y ~ x, data = loc.df, col = "black", 
                      fill = clrs, pch = 21,
@@ -68,7 +68,7 @@ plotLocations <- function(eot.obj, ...) {
   
   out <- pred.p + as.layer(points.p)
   
-  n <- length(eot.obj[[1]])
+  n <- length(eot.obj)
   
   grid.newpage()
   
@@ -119,7 +119,7 @@ plotLocations <- function(eot.obj, ...) {
       
       pushViewport(vp)
       
-      txt <- resizingTextGrob(x = 0.2, sort(names(eot.obj[[1]]))[i],
+      txt <- resizingTextGrob(x = 0.2, sort(names(eot.obj))[i],
                               just = "left")
       
       grid.draw(txt)

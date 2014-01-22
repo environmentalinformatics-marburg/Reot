@@ -9,112 +9,77 @@ using namespace Rcpp;
 double corC(NumericVector x, NumericVector y);
 RcppExport SEXP Reot_corC(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP );
-        double __result = corC(x, y);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RNGScope __rngScope;
+    NumericVector x = Rcpp::as<NumericVector >(xSEXP);
+    NumericVector y = Rcpp::as<NumericVector >(ySEXP);
+    double __result = corC(x, y);
+    return Rcpp::wrap(__result);
 END_RCPP
 }
 // lmC
 List lmC(NumericVector x, NumericVector y);
 RcppExport SEXP Reot_lmC(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP );
-        List __result = lmC(x, y);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RNGScope __rngScope;
+    NumericVector x = Rcpp::as<NumericVector >(xSEXP);
+    NumericVector y = Rcpp::as<NumericVector >(ySEXP);
+    List __result = lmC(x, y);
+    return Rcpp::wrap(__result);
 END_RCPP
 }
 // predRsquaredSum
 NumericVector predRsquaredSum(NumericMatrix pred_vals, NumericMatrix resp_vals, bool standardised);
 RcppExport SEXP Reot_predRsquaredSum(SEXP pred_valsSEXP, SEXP resp_valsSEXP, SEXP standardisedSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericMatrix >::type pred_vals(pred_valsSEXP );
-        Rcpp::traits::input_parameter< NumericMatrix >::type resp_vals(resp_valsSEXP );
-        Rcpp::traits::input_parameter< bool >::type standardised(standardisedSEXP );
-        NumericVector __result = predRsquaredSum(pred_vals, resp_vals, standardised);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RNGScope __rngScope;
+    NumericMatrix pred_vals = Rcpp::as<NumericMatrix >(pred_valsSEXP);
+    NumericMatrix resp_vals = Rcpp::as<NumericMatrix >(resp_valsSEXP);
+    bool standardised = Rcpp::as<bool >(standardisedSEXP);
+    NumericVector __result = predRsquaredSum(pred_vals, resp_vals, standardised);
+    return Rcpp::wrap(__result);
 END_RCPP
 }
 // respLmParam
 List respLmParam(NumericMatrix x, NumericMatrix y, int cell);
 RcppExport SEXP Reot_respLmParam(SEXP xSEXP, SEXP ySEXP, SEXP cellSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP );
-        Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP );
-        Rcpp::traits::input_parameter< int >::type cell(cellSEXP );
-        List __result = respLmParam(x, y, cell);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RNGScope __rngScope;
+    NumericMatrix x = Rcpp::as<NumericMatrix >(xSEXP);
+    NumericMatrix y = Rcpp::as<NumericMatrix >(ySEXP);
+    int cell = Rcpp::as<int >(cellSEXP);
+    List __result = respLmParam(x, y, cell);
+    return Rcpp::wrap(__result);
 END_RCPP
 }
 // findudC
 NumericVector findudC(NumericVector x);
 RcppExport SEXP Reot_findudC(SEXP xSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
-        NumericVector __result = findudC(x);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RNGScope __rngScope;
+    NumericVector x = Rcpp::as<NumericVector >(xSEXP);
+    NumericVector __result = findudC(x);
+    return Rcpp::wrap(__result);
 END_RCPP
 }
 // iodaC
 double iodaC(NumericVector x, NumericVector y);
 RcppExport SEXP Reot_iodaC(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP );
-        double __result = iodaC(x, y);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RNGScope __rngScope;
+    NumericVector x = Rcpp::as<NumericVector >(xSEXP);
+    NumericVector y = Rcpp::as<NumericVector >(ySEXP);
+    double __result = iodaC(x, y);
+    return Rcpp::wrap(__result);
 END_RCPP
 }
 // iodaSumC
 NumericVector iodaSumC(NumericMatrix pred_vals, NumericMatrix resp_vals);
 RcppExport SEXP Reot_iodaSumC(SEXP pred_valsSEXP, SEXP resp_valsSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericMatrix >::type pred_vals(pred_valsSEXP );
-        Rcpp::traits::input_parameter< NumericMatrix >::type resp_vals(resp_valsSEXP );
-        NumericVector __result = iodaSumC(pred_vals, resp_vals);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RNGScope __rngScope;
+    NumericMatrix pred_vals = Rcpp::as<NumericMatrix >(pred_valsSEXP);
+    NumericMatrix resp_vals = Rcpp::as<NumericMatrix >(resp_valsSEXP);
+    NumericVector __result = iodaSumC(pred_vals, resp_vals);
+    return Rcpp::wrap(__result);
 END_RCPP
 }
