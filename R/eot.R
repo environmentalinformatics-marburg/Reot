@@ -9,7 +9,6 @@ eot <- function(pred,
                 write.out = FALSE,
                 path.out = ".", 
                 names.out = NULL,
-                cycle.window = NULL,
                 reduce.both = FALSE, 
                 type = c("rsq", "ioa"),
                 print.console = TRUE,
@@ -18,14 +17,10 @@ eot <- function(pred,
   # Duplicate predictor set in case predictor and response are identical
   if (is.null(resp)) {
     resp <- pred  
-    resp.eq.pred = T
+    resp.eq.pred <- TRUE
   } else {
-    resp.eq.pred = F
+    resp.eq.pred <- FALSE
   }
-  
-  # Cycle window if not provided
-  if (is.null(cycle.window))
-    cycle.window <- nlayers(pred)
   
   if (!standardised) {
     t <- mean(apply(getValues(resp), 1, var, na.rm = TRUE), na.rm = TRUE)
@@ -38,16 +33,12 @@ eot <- function(pred,
   
   ### EOT
   
-  # Loop through RasterStacks by specified cycle.window (e.g. 12 for one year)
-  #pred.eot <- 
-  lapply(seq(1, nlayers(pred), cycle.window), function(i) {
-    
-    # User-defined iterations
+    # Loop through number of desired EOTs
     for (z in seq(n)) {
       # Use initial response data set in case of first iteration
       if (z == 1) {
-        pred.eot <- EotCycle(pred = pred[[i:(i+cycle.window-1)]], 
-                             resp = resp[[i:(i+cycle.window-1)]],
+        pred.eot <- EotCycle(pred = pred, 
+                             resp = resp,
                              resp.eq.pred = resp.eq.pred,
                              n = z, 
                              type = type,
@@ -56,17 +47,13 @@ eot <- function(pred,
                              write.out = write.out,
                              path.out = path.out, 
                              print.console = print.console,
-                             names.out = if (!is.null(names.out) | write.out) {
-                               names.out[ceiling(i/cycle.window)]
-                             } else {
-                               NULL
-                             })
+                             names.out = names.out)
                 
-        # Use last entry of slot 'residuals' otherwise  
+      # Use last entry of slot 'residuals' otherwise  
       } else if (z > 1) {
         tmp.pred.eot <- EotCycle(
           pred = if (!reduce.both) {
-            pred[[i:(i+cycle.window-1)]]
+            pred
           } else {
             if (z == 2) {
               pred.eot$resid.predictor
@@ -87,11 +74,7 @@ eot <- function(pred,
           write.out = write.out,
           path.out = path.out,  
           print.console = print.console,
-          names.out = if (!is.null(names.out) | write.out) {
-            names.out[ceiling(i/cycle.window)]
-          } else {
-            NULL
-          })
+          names.out = names.out)
         
         if (z == 2) {
           pred.eot <- list(pred.eot, tmp.pred.eot)
@@ -105,7 +88,4 @@ eot <- function(pred,
     }
     
     return(pred.eot)
-    
-  })
-  
 }
