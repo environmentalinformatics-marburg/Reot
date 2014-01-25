@@ -1,5 +1,87 @@
-#' The core function of the package, calculates EOT based on user-supplied
-#' predictor and (optional) response RasterStack.
+#' Calculate EOTs of a predictor and (optional) a response raster stack
+#' 
+#' Calculate a given number of EOT modes either internally or between 
+#' raster stacks. 
+#' @bibliography /media/windows/tappelhans/papers/JSS/jss_appelhans_et_al_refs.bib
+#' @param pred a ratser stack used as predictor
+#' @param resp a raster stack used as response. If \code{resp} is \code{NULL},
+#' \code{pred} is used as \code{resp}
+#' @param n the number of EOT modes to calculate
+#' @param standardised logical. If \code{FALSE} the calculated r-squared values 
+#' will be multiplied by the variance
+#' @param write.out logical. If \code{TRUE} results will be written to disk 
+#' using \code{path.out}
+#' @param path.out the file path for writing results if \code{write.out} is \code{TRUE}.
+#' Defaults to current working directory
+#' @param names.out optional prefix to be used for naming of results if 
+#' \code{write.out} is \code{TRUE}
+#' @param reduce.both logical. If \code{TRUE} both \code{pred} and \code{resp} 
+#' are reduced after each iteration. If \code{FALSE} only \code{resp} is reduced
+#' @param type the type of the link function. Defaults to \code{'rsq'} as in original
+#' proposed method from \cite{Dool2000}. If set to \code{'ioa'} index of agreement is
+#' used instead
+#' @param print.console logical. If \code{TRUE} some details about the 
+#' calculation process will be output to the console
+#' @param ... not used at the moment
+#' 
+#' @details 
+#' The mathematics of the EOT algorithm are described in detail in \cite{Dool2000} 
+#' and \cite{Dool2007} and can be summarised as follows.
+#' First, the temporal profiles of each pixel \emph{np} of the predictor domain 
+#' are regressed against the profiles of all pixels \emph{nr} in the 
+#' response domain (in case of only a single field \emph{nr} = \emph{np} - 1). 
+#' The calculated coefficients of determination are summed up and the pixel 
+#' with the highest sum for explaining variance within the response domain 
+#' is identified as the 'base point' of the first/leading mode. 
+#' The temporal profile at this base point is the first/leading EOT. 
+#' Then, the residuals from the regression are taken to be the basis 
+#' for the calculation of the next EOT, thus ensuring orthogonality 
+#' of the identified teleconnections. This procedure is repeated until 
+#' a predefined amount of \emph{n} EOTs is calculated. In general, 
+#' \pkg{Reot} implements a 'brute force' spatial data mining approach to 
+#' identify locations of enhanced potential to explain spatio-temporal 
+#' variability within the same or another geographic field.
+#' 
+#' @return 
+#' a list of \code{n} EOTs. Each EOT is also a list with the following components:
+#' \itemize{
+#' \item \emph{eot.series} - the EOT time series at the identified base point
+#' \item \emph{max.xy} - the cell number of the indeified base point
+#' \item \emph{exp.var} - the (cumulative) explained variance of the considered EOT
+#' \item \emph{loc.eot} - the location of the base point (in original coordinates)
+#' \item \emph{r.predictor} - the \emph{RasterLayer} of the correlation coefficients 
+#' between the base point and each pixel of the predictor domain
+#' \item \emph{rsq.predictor} - as above but for the coefficient of determination
+#' \item \emph{rsq.sums.predictor} - as above but for the sums of coefficient of determination
+#' \item \emph{int.predictor} - the \emph{RasterLayer} of the intercept of the 
+#' regression equation for each pixel of the predictor domain
+#' \item \emph{slp.predictor} - same as above but for the slope of the 
+#' regression equation for each pixel of the predictor domain
+#' \item \emph{p.predictor} - the \emph{RasterLayer} of the significance (p-value) 
+#' of the the regression equation for each pixel of the predictor domain
+#' \item \emph{resid.predictor} - the \emph{RasterBrick} of the reduced data 
+#' for the predictor domain
+#' }
+#' 
+#' All \emph{*.predictor} fields are also returned for the \emph{*.response} domain, 
+#' even if predictor and response domain are equal. This is due to that fact, 
+#' that if not both fields are reduced after the first EOT is found, 
+#' these \emph{RasterLayers} will differ.
+#' 
+#' 
+#' @references 
+#' \bold{Empirical Orthogonal Teleconnections}\cr
+#' H. M. van den Dool, S. Saha, Å Johansson (2000)\cr
+#' Journal of Climate, Volume 13, Issue 8, pp. 1421-1435\cr
+#' \url{http://journals.ametsoc.org/doi/abs/10.1175/1520-0442%282000%29013%3C1421%3AEOT%3E2.0.CO%3B2
+#' }
+#'  
+#' \bold{Empirical methods in short-term climate prediction}\cr
+#' H. M. van den Dool (2007)\cr
+#' Oxford University Press, Oxford, New York\cr
+#' \url{http://www.oup.com/uk/catalogue/?ci=9780199202782}
+#' 
+#' 
 #' 
 #' @export eot
 eot <- function(pred, 

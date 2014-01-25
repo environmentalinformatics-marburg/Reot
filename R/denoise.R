@@ -1,8 +1,29 @@
-#' Noise filtering through principal components. The user can either specify
-#' how many components to keep or can specify a minimum value for the variance that
-#' should be kept.
+#' Noise filtering through principal components. 
+#' 
+#' Filter noise from a raster stack by decomposing into principal components 
+#' and subsequent reconstruction using only a subset of components
+#' 
+#' @param data raster stack to be filtered
+#' @param k number of components to be kept for reconstruction 
+#' (set this to NULL if you supply \code{expl.var})
+#' @param expl.var  minimum amount of variance to be kept after reconstruction
+#' (not used if \code{k} is supplied)
+#' @param weighted logical. If \code{TRUE} the covariance matrix will be 
+#' geographically weighted using the cosine of latitude during decomposition 
+#' (only important for lat/lon data)
+#' @param ... additional arguments passed to \code{\link{princomp}}
+#' @return the denoised raster stack object
 #' 
 #' @export denoise
+#' 
+#' @examples
+#' data("australiaGPCP")
+#' aus.dns <- denoise(australiaGPCP, expl.var = 0.8)
+#' 
+#' opar <- par(mfrow = c(1,2))
+#' plot(australiaGPCP[[1]], main = "original")
+#' plot(aus.dns[[1]], main = "denoised")
+#' par(opar)
 denoise <- function(data,
                     k = NULL,
                     expl.var = 0.95,
@@ -15,21 +36,18 @@ denoise <- function(data,
   # PCA
   if (weighted) { 
     pca <- princomp(~ x, covmat = covWeight(x, getWeights(data)), 
-                    scores = TRUE, na.action = na.exclude)
+                    scores = TRUE, na.action = na.exclude, ...)
   } else {
-    pca <- princomp(~ x, scores = TRUE, na.action = na.exclude)
+    pca <- princomp(~ x, scores = TRUE, na.action = na.exclude, ...)
   }
   
+  # declare reconstruction characteristics according to supplied values
   if (is.null(k)) {
     k <- which(cumsum(pca$sdev^2 / sum(pca$sdev^2)) >= expl.var)[1]
   } else {
     expl.var <- cumsum(pca$sdev^2 / sum(pca$sdev^2))[k]
   }
-  
-  #eivecs <- as.matrix(pca$loadings[, 1:k])
-  #pvals <- pca$scores[, 1:k]
-  #cent <- pca$center
-  
+
   cat("\n",
       "Using the first ",
       k,
