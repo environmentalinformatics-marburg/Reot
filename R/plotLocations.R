@@ -1,7 +1,18 @@
-#' A simple plotting routine to visualise the location of all identified base
-#' points colour coded according to eot mode (1 - k).
+#' Simple plotting routine to visualise the location of all identified base
+#' points colour coded according to eot mode (1 to n).
+#' 
+#' @param eot.obj an EOT object as returned by \code{\link{eot}}
 #' 
 #' @export plotLocations
+#' 
+#' @examples
+#' data(vdendool)
+#' 
+#' # claculate 4 leading modes
+#' modes <- eot(pred = vdendool, resp = NULL, n = 4, reduce.both = FALSE,
+#'              standardised = FALSE, print.console = TRUE)
+#'
+#' plotLocations(modes)
 plotLocations <- function(eot.obj, ...) {
 
   ### some helper functions especially for the grid layout

@@ -81,7 +81,38 @@
 #' Oxford University Press, Oxford, New York\cr
 #' \url{http://www.oup.com/uk/catalogue/?ci=9780199202782}
 #' 
+#' @examples
+#' ### EXAMPLE I:
+#' ### a single field
+#' data(vdendool)
 #' 
+#' # claculate 4 leading modes
+#' modes <- eot(pred = vdendool, resp = NULL, n = 4, reduce.both = FALSE,
+#'              standardised = FALSE, print.console = TRUE)
+#' 
+#' plotEot(modes, eot = 1, show.eot.loc = TRUE)
+#' plotEot(modes, eot = 2, show.eot.loc = TRUE)
+#' plotEot(modes, eot = 3, show.eot.loc = TRUE)
+#' plotEot(modes, eot = 4, show.eot.loc = TRUE)
+#' 
+#' ### EXAMPLE II:
+#' ### cross eot using two fields
+#' data("australiaGPCP")
+#' data("pacificSST")
+#' 
+#' # deseason data
+#' sst.pred <- deseason(pacificSST, cycle.window = 12)
+#' gpcp.resp <- deseason(australiaGPCP, cycle.window = 12)
+#' 
+#' # denoise data (keeping 90 % of the variance)
+#' sst.pred.dns <- denoise(sst.pred, expl.var = 0.9)
+#' gpcp.resp.dns <- denoise(gpcp.resp, expl.var = 0.9)
+#' 
+#' # calculate first 3 leading modes
+#' modes <- eot(pred = sst.pred.dns, resp = gpcp.resp.dns, n = 3, 
+#'              standardised = FALSE, reduce.both = FALSE)
+#' 
+#' plotEot(modes, eot = 1, show.eot.loc = TRUE, arrange = "long")
 #' 
 #' @export eot
 eot <- function(pred, 
