@@ -249,68 +249,8 @@ EotCycle <- function(pred,
       gc()
       
     }
-    
-#   } else {
-#      
-#     # RasterLayer template for R-squared, slope and p value
-#     rst.pred.template <- raster(nrows = nrow(pred), ncols = ncol(pred), 
-#                                 xmn = xmin(pred), xmx = xmax(pred), 
-#                                 ymn = ymin(pred), ymx = ymax(pred))
-#     
-#     rst.pred.rsq.sums <- rst.pred.template
-#     
-#     # R-squared sums
-#     rst.pred.rsq.sums[] <- x
-#     
-#     # Output returned by function
-#     out <- list(eot.series = eot.ts,
-#                 max.xy = maxxy,
-#                 loc.eot = location.df,
-#                 r.response = rst.resp.r,
-#                 rsq.response = rst.resp.rsq,
-#                 rsq.sums.predictor = rst.pred.rsq.sums,
-#                 int.response = rst.resp.intercept, 
-#                 slp.response = rst.resp.slp,
-#                 p.response = rst.resp.p,
-#                 resid.response = brck.resp.resids)
-#     
-#     # Output storage (optional)
-#     if (write.out) {
-#       out.name <- lapply(c("resp_r", "resp_rsq", "pred_rsq_sums", "resp_int", "resp_slp", "resp_p", "resp_resids"), 
-#                          function(i) {
-#                            paste(names.out, "eot", sprintf("%02.f", n), i, sep = "_")
-#                          })
-#       
-#       df.name <- paste(names.out, "eot_locations.csv", sep = "_")
-#       
-#       write.table(location.df, col.names = FALSE,
-#                 paste(path.out, df.name, sep = "/"), 
-#                 row.names = FALSE, append = TRUE, sep = ",")
-#       
-#       foreach(a = c(rst.resp.r, rst.resp.rsq, rst.pred.rsq.sums, rst.resp.intercept, rst.resp.slp, rst.resp.p, brck.resp.resids), 
-#               b = unlist(out.name)) %dopar% {
-#                 writeRaster(a, paste(path.out, b, sep = "/"), format = "raster", overwrite = TRUE)
-#                       }
-#       
-#       rm(list = c("pred.vals",
-#                   "resp.vals",
-#                   "eot.ts",
-#                   "maxxy",
-#                   "location.df",
-#                   "rst.resp.r",
-#                   "rst.resp.rsq",  
-#                   "rst.pred.rsq.sums",
-#                   "rst.resp.intercept", 
-#                   "rst.resp.slp",
-#                   "rst.resp.p",
-#                   "brck.resp.resids"))
-#       gc()
-#       
-#     }
-#   }
   
   # Return output
   return(out)
-  
-  #}
+
 }

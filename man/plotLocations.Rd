@@ -1,7 +1,6 @@
 \name{plotLocations}
 \alias{plotLocations}
-\title{Simple plotting routine to visualise the location of all identified base
-points colour coded according to eot mode (1 to n).}
+\title{Plot the locations of the base points}
 \usage{
 plotLocations(eot.obj, ...)
 }

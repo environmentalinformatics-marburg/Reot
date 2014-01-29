@@ -1,4 +1,9 @@
-#' Standard plotting routine for the results of \code{\link{eot}}
+#' Plot the results of eot
+#' 
+#' @description
+#' This is the standard plotting routine for the results of \code{\link{eot}}.
+#' Three panels will be drawn i) the predictor domain, ii) the response 
+#' domain, iii) the time series at the identified base point
 #' 
 #' @param eot.obj an EOT object as returned by \code{\link{eot}}
 #' @param eot numeric. the mode to be plotted

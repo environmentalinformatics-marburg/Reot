@@ -1,11 +1,25 @@
 \name{geoWeight}
 \alias{geoWeight}
-\title{Function to perform geographic weighting of user-supplied RasterStacks.}
+\title{Geographic weighting}
 \usage{
 geoWeight(x)
 }
+\arguments{
+  \item{x}{a raster* object}
+}
 \description{
-Function to perform geographic weighting of user-supplied
-RasterStacks.
+The function performs geographic weighting using the cosine
+of latitude to compensate for area distortion of
+non-projected lat/lon data
+}
+\examples{
+data(vdendool)
+
+wgtd <- geoWeight(vdendool)
+
+opar <- par(mfrow = c(1,2))
+plot(vdendool[[1]], main = "original")
+plot(wgtd[[1]], main = "weighted")
+par(opar)
 }
 

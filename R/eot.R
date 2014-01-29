@@ -1,8 +1,11 @@
-#' Calculate EOTs of a predictor and (optional) a response raster stack
+#' EOT analysis of a predictor and (optional) a response raster stack
 #' 
+#' @description
 #' Calculate a given number of EOT modes either internally or between 
 #' raster stacks. 
+#' 
 #' @bibliography /media/windows/tappelhans/papers/JSS/jss_appelhans_et_al_refs.bib
+#' 
 #' @param pred a ratser stack used as predictor
 #' @param resp a raster stack used as response. If \code{resp} is \code{NULL},
 #' \code{pred} is used as \code{resp}

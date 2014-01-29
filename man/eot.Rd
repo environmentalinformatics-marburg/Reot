@@ -1,6 +1,6 @@
 \name{eot}
 \alias{eot}
-\title{Calculate EOTs of a predictor and (optional) a response raster stack}
+\title{EOT analysis of a predictor and (optional) a response raster stack}
 \usage{
 eot(pred, resp = NULL, n = 1, standardised = TRUE, write.out = FALSE,
   path.out = ".", names.out = NULL, reduce.both = FALSE, type = c("rsq",

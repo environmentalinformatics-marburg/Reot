@@ -1,6 +1,6 @@
 \name{plotEot}
 \alias{plotEot}
-\title{Standard plotting routine for the results of \code{\link{eot}}}
+\title{Plot the results of eot}
 \usage{
 plotEot(eot.obj, eot = 1, pred.prm = "r.predictor",
   resp.prm = "rsq.response", show.eot.loc = FALSE, anomalies = TRUE,
@@ -44,8 +44,10 @@ plotEot(eot.obj, eot = 1, pred.prm = "r.predictor",
   displaying of the predictor and response fields}
 }
 \description{
-Standard plotting routine for the results of
-\code{\link{eot}}
+This is the standard plotting routine for the results of
+\code{\link{eot}}. Three panels will be drawn i) the
+predictor domain, ii) the response domain, iii) the time
+series at the identified base point
 }
 \examples{
 data(vdendool)

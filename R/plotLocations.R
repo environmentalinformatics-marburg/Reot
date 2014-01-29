@@ -1,3 +1,6 @@
+#' Plot the locations of the base points
+#' 
+#' @description
 #' Simple plotting routine to visualise the location of all identified base
 #' points colour coded according to eot mode (1 to n).
 #' 

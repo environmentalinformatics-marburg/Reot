@@ -1,7 +1,25 @@
-#' Create seasonal anomalies of a RasterStack by supplying a suitable seasonal
-#' window.
+#' Create seasonal anomalies
+#' 
+#' @description
+#' The function calculates anomalies of a RasterStack by supplying a 
+#' suitable seasonal window. E. g. to create monthly anomalies of a 
+#' raster stack of 12 layers per year, use \code{cycle.window = 12}.
+#' 
+#' @param data a raster stack
+#' @param cycle.window the window for the creation of the anomalies
+#' @param ... currently not used
 #' 
 #' @export deseason
+#' 
+#' @examples 
+#' data("australiaGPCP")
+#' 
+#' aus.dsn <- deseason(australiaGPCP, 12)
+#' 
+#' opar <- par(mfrow = c(1,2))
+#' plot(australiaGPCP[[1]], main = "original")
+#' plot(aus.dsn[[1]], main = "deseasoned")
+#' par(opar)
 deseason <- function(data, 
                      cycle.window = 12,
                      ...) {
