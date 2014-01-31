@@ -6,5 +6,4 @@ src/*.so
 src/*.dll
 README.html
 README.Rmd
-bumpVersion.R
 
