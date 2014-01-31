@@ -5,7 +5,7 @@
 getWeights(x)
 }
 \arguments{
-  \item{x}{a raster stack}
+  \item{x}{a raster* object}
 }
 \value{
 a numeric vector of weights

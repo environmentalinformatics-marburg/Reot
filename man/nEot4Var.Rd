@@ -1,7 +1,6 @@
 \name{nEot4Var}
 \alias{nEot4Var}
-\title{Identify the number of modes needed to explain a certain amount of
-variance within the response series.}
+\title{Number of EOTs needed for variance explanation}
 \usage{
 nEot4Var(eot.obj, var = 0.9)
 }
@@ -12,12 +11,13 @@ nEot4Var(eot.obj, var = 0.9)
   the modes}
 }
 \description{
-Identify the number of modes needed to explain a certain
-amount of variance within the response series.
+The function identifies the number of modes needed to
+explain a certain amount of variance within the response
+series.
 }
 \details{
 This is a post-hoc function like \code{\link{plotEot}} and
-\code{\link{eotLocations}}. This means that it needs an
+\code{\link{plotLocations}}. This means that it needs an
 object which was created with \code{\link{eot}}. Depending
 on the potency of the identified EOTs, it may be necessary
 to compute a high number of modes in order to be able to

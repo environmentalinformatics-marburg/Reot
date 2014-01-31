@@ -1,10 +1,8 @@
-#' EOT analysis of a predictor and (optional) a response raster stack
+#' EOT analysis of a predictor and (optionally) a response raster stack
 #' 
 #' @description
 #' Calculate a given number of EOT modes either internally or between 
-#' raster stacks. 
-#' 
-#' @bibliography /media/windows/tappelhans/papers/JSS/jss_appelhans_et_al_refs.bib
+#' raster stacks.
 #' 
 #' @param pred a ratser stack used as predictor
 #' @param resp a raster stack used as response. If \code{resp} is \code{NULL},
@@ -28,14 +26,13 @@
 #' @param ... not used at the moment
 #' 
 #' @details 
-#' The mathematics of the EOT algorithm are described in detail in \cite{Dool2000} 
-#' and \cite{Dool2007} and can be summarised as follows.
-#' First, the temporal profiles of each pixel \emph{np} of the predictor domain 
-#' are regressed against the profiles of all pixels \emph{nr} in the 
-#' response domain (in case of only a single field \emph{nr} = \emph{np} - 1). 
+#' For a detailed description of the EOT algorithm and the mathematics behind it,
+#' see the References section. In brief, the algorithm works as follows: 
+#' First, the temporal profiles of each pixel \emph{xp} of the predictor domain 
+#' are regressed against the profiles of all pixels \emph{xr} in the 
+#' response domain (in case of only a single field \emph{xr} = \emph{xp} - 1). 
 #' The calculated coefficients of determination are summed up and the pixel 
-#' with the highest sum for explaining variance within the response domain 
-#' is identified as the 'base point' of the first/leading mode. 
+#' with the highest sum is identified as the 'base point' of the first/leading mode. 
 #' The temporal profile at this base point is the first/leading EOT. 
 #' Then, the residuals from the regression are taken to be the basis 
 #' for the calculation of the next EOT, thus ensuring orthogonality 

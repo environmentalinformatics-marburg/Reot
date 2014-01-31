@@ -7,12 +7,10 @@
 #' 
 #' @param eot.obj an EOT object as returned by \code{\link{eot}}
 #' @param eot numeric. the mode to be plotted
-#' @param pred.prm the parameter of the predictor to be plotted. 
-#' Can be any of "r.predictor", "rsq.predictor", "rsq.sums.predictor",
-#' "p.predictor", "int.predictor" or "slp.predictor"
-#' @param resp.prm the parameter of the response to be plotted.
-#' Can be any of "r.response", "rsq.response", "rsq.sums.response",
-#' "p.response", "int.response" or "slp.response"
+#' @param pred.prm the parameter of the predictor to be plotted.\cr
+#' Can be any of "r", "rsq", "rsq.sums", "p", "int" or "slp"
+#' @param resp.prm the parameter of the response to be plotted.\cr
+#' Can be any of "r", "rsq", "rsq.sums", "p", "int" or "slp"
 #' @param show.eot.loc logical. If \code{TRUE} a grey circle will be drawn 
 #' in the predictor image to indicate the location of the mode
 #' @param anomalies logical. If \code{TRUE} a reference line will be drawn
@@ -23,7 +21,7 @@
 #' EOT calculation to be shown as the x-axis in the time series plot
 #' @param arrange whether the final plot should be arranged in "wide" or
 #' "long" format
-#' @param clr an (optional) color palette function for displaying of the 
+#' @param clr an (optional) color palette for displaying of the 
 #' predictor and response fields
 #' 
 #' @examples
@@ -33,19 +31,18 @@
 #' modes <- eot(pred = vdendool, resp = NULL, n = 4, reduce.both = FALSE,
 #'              standardised = FALSE, print.console = TRUE)
 #'
-#' # simple default plotting 
-#' plotEot(modes, eot = 1)
+#' # default settings 
+#' plotEot(modes)
 #' 
 #' # showing the loction of the mode
 #' plotEot(modes, eot = 1, show.eot.loc = TRUE)
 #' 
 #' # changing parameters
 #' plotEot(modes, eot = 1, show.eot.loc = TRUE,
-#'         pred.prm = "rsq.predictor", resp.prm = "p.response")
+#'         pred.prm = "r", resp.prm = "p")
 #'         
 #' # change plot arrangement
 #' plotEot(modes, eot = 1, show.eot.loc = TRUE, arrange = "long") 
-#' 
 #' 
 #' @export plotEot
 plotEot <- function(eot.obj,

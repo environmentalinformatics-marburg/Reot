@@ -3,7 +3,7 @@
 #' Calculate weights using the cosine of latitude to compensate for area 
 #' distortion of non-projected lat/lon data
 #' 
-#' @param x a raster stack
+#' @param x a raster* object
 #' @return a numeric vector of weights
 #' @examples 
 #' data("australiaGPCP")

@@ -5,7 +5,7 @@ Version: 0.1.1
 Date: 2013-08-15
 Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
-Description: More about what it does (maybe more than one line)
+Description: A collection of functions to facilitate empirical orthogonal teleconnection analysis. Some handy functions for preprocessing, such as deseasoning, denoising, lagging are readily available for ease of usage.
 License: GNU GPL (>=3)
 Depends: Rcpp (>= 0.10.3), mapdata, maps, gridExtra, latticeExtra, raster, foreach
 LinkingTo: Rcpp

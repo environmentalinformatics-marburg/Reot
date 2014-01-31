@@ -14,14 +14,12 @@ plotEot(eot.obj, eot = 1, pred.prm = "rsq", resp.prm = "r",
   \item{eot}{numeric. the mode to be plotted}
 
   \item{pred.prm}{the parameter of the predictor to be
-  plotted. Can be any of "r.predictor", "rsq.predictor",
-  "rsq.sums.predictor", "p.predictor", "int.predictor" or
-  "slp.predictor"}
+  plotted.\cr Can be any of "r", "rsq", "rsq.sums", "p",
+  "int" or "slp"}
 
   \item{resp.prm}{the parameter of the response to be
-  plotted. Can be any of "r.response", "rsq.response",
-  "rsq.sums.response", "p.response", "int.response" or
-  "slp.response"}
+  plotted.\cr Can be any of "r", "rsq", "rsq.sums", "p",
+  "int" or "slp"}
 
   \item{show.eot.loc}{logical. If \code{TRUE} a grey circle
   will be drawn in the predictor image to indicate the
@@ -40,8 +38,8 @@ plotEot(eot.obj, eot = 1, pred.prm = "rsq", resp.prm = "r",
   \item{arrange}{whether the final plot should be arranged
   in "wide" or "long" format}
 
-  \item{clr}{an (optional) color palette function for
-  displaying of the predictor and response fields}
+  \item{clr}{an (optional) color palette for displaying of
+  the predictor and response fields}
 }
 \description{
 This is the standard plotting routine for the results of
@@ -56,15 +54,15 @@ data(vdendool)
 modes <- eot(pred = vdendool, resp = NULL, n = 4, reduce.both = FALSE,
              standardised = FALSE, print.console = TRUE)
 
-# simple default plotting
-plotEot(modes, eot = 1)
+# default settings
+plotEot(modes)
 
 # showing the loction of the mode
 plotEot(modes, eot = 1, show.eot.loc = TRUE)
 
 # changing parameters
 plotEot(modes, eot = 1, show.eot.loc = TRUE,
-        pred.prm = "rsq.predictor", resp.prm = "p.response")
+        pred.prm = "r", resp.prm = "p")
 
 # change plot arrangement
 plotEot(modes, eot = 1, show.eot.loc = TRUE, arrange = "long")
