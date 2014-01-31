@@ -50,8 +50,8 @@
 #' @export plotEot
 plotEot <- function(eot.obj,
                     eot = 1,
-                    pred.prm = "r.predictor",
-                    resp.prm = "rsq.response",
+                    pred.prm = "rsq",
+                    resp.prm = "r",
                     show.eot.loc = FALSE,
                     anomalies = TRUE,
                     add.map = TRUE,
@@ -61,6 +61,9 @@ plotEot <- function(eot.obj,
                       rev(brewer.pal(9, "Spectral")))(1000),
                     ...)
 {
+  
+  p.prm <- paste(pred.prm, "predictor", sep = ".")
+  r.prm <- paste(resp.prm, "response", sep = ".")
   
   if (is.null(times.vec)) 
     times.vec <- seq(nlayers(eot.obj[[1]]$resid.response))
@@ -79,27 +82,27 @@ plotEot <- function(eot.obj,
       x <- ifelse((x < 1) | (x > 359), NA, x)
     })
     
-    if (max(extent(eot.obj[[eot]][[pred.prm]])@xmax) > 180) {
+    if (max(extent(eot.obj[[eot]][[p.prm]])@xmax) > 180) {
       mm.pred <- mm360
     } else {
       mm.pred <- mm180
     }
     
-    if (max(extent(eot.obj[[eot]][[resp.prm]])@xmax) > 180) {
+    if (max(extent(eot.obj[[eot]][[r.prm]])@xmax) > 180) {
       mm.resp <- mm360
     } else {
       mm.resp <- mm180
     }
   }
   
-  px.pred <- ncell(eot.obj[[eot]]$r.predictor)
-  px.resp <- ncell(eot.obj[[eot]]$r.response)
+  px.pred <- ncell(eot.obj[[eot]][[p.prm]])
+  px.resp <- ncell(eot.obj[[eot]][[r.prm]])
   
-  pred.p <- spplot(eot.obj[[eot]][[pred.prm]], 
+  pred.p <- spplot(eot.obj[[eot]][[p.prm]], 
                    mm = mm.pred, maxpixels = px.pred,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
-                   main = paste(pred.prm, "EOT", eot, sep = " "), 
+                   main = paste(p.prm, "EOT", eot, sep = " "), 
                    col.regions = clr, panel = function(..., mm) {
                      panel.levelplot(...)
                      if (isTRUE(add.map)) {
@@ -110,11 +113,11 @@ plotEot <- function(eot.obj,
   
   if (show.eot.loc) pred.p <- pred.p + as.layer(eot.location.p)
   
-  resp.p <- spplot(eot.obj[[eot]][[resp.prm]], 
+  resp.p <- spplot(eot.obj[[eot]][[r.prm]], 
                    mm = mm.resp, maxpixels = px.resp,
                    colorkey = list(space = "top",
                                    width = 0.7, height = 0.8), 
-                   main = paste(resp.prm, "EOT", eot, sep = " "), 
+                   main = paste(r.prm, "EOT", eot, sep = " "), 
                    col.regions = clr, panel = function(..., mm) {
                      panel.levelplot(...)
                      if (isTRUE(add.map)) {

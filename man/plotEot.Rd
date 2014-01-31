@@ -2,9 +2,9 @@
 \alias{plotEot}
 \title{Plot the results of eot}
 \usage{
-plotEot(eot.obj, eot = 1, pred.prm = "r.predictor",
-  resp.prm = "rsq.response", show.eot.loc = FALSE, anomalies = TRUE,
-  add.map = TRUE, times.vec = NULL, arrange = c("wide", "long"),
+plotEot(eot.obj, eot = 1, pred.prm = "rsq", resp.prm = "r",
+  show.eot.loc = FALSE, anomalies = TRUE, add.map = TRUE,
+  times.vec = NULL, arrange = c("wide", "long"),
   clr = colorRampPalette(rev(brewer.pal(9, "Spectral")))(1000), ...)
 }
 \arguments{
