@@ -12,7 +12,7 @@ Empirical Orthogonal Teleconnections in R
 \tabular{ll}{
 Package: \tab Reot\cr
 Type: \tab Package\cr
-Version: \tab 0.1.1\cr
+Version: \tab Version: 0.0.1\cr
 Date: \tab 2014-01-31\cr
 License: \tab GNU GPL (>=3)\cr
 }
