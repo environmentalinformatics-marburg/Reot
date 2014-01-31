@@ -1,4 +1,4 @@
-bumpVersion <- function(pkg.repo= ".", pkg.name, major, minor, patch) {
+bumpVersion <- function(major, minor, patch, pkg.repo= ".") {
   
   new.ver <- paste(major, minor, patch, sep = ".")
   
@@ -22,6 +22,9 @@ bumpVersion <- function(pkg.repo= ".", pkg.name, major, minor, patch) {
     writeLines(desc, paste(pkg.repo, "DESCRIPTION", sep = "/"))
     
     ### pkg.name-package.Rd file
+    pkg.name <- substr(desc[grep(glob2rx("Package:*"), desc)], 10, 
+                       nchar(desc[grep(glob2rx("Package:*"), desc)]))
+    
     pkg.doc <- readLines(paste(pkg.repo, "man", 
                                paste(pkg.name, "-package.Rd", sep = ""),
                                sep = "/"))
