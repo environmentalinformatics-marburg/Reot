@@ -12,7 +12,7 @@ bumpVersion <- function(major, minor, patch, pkg.repo= ".") {
   new <- new[1] * 100 + new[2] * 10 + new[3]
   old <- old[1] * 100 + old[2] * 10 + old[3]
   
-  if (old >= new) stop("new version number needs to be higher than old",
+  if (old > new) stop("new version number needs to be higher than old",
                        "\n\n", "old version number is: ", old.ver)
   else {
     
