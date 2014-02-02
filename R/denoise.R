@@ -1,9 +1,9 @@
 #' Noise filtering through principal components. 
 #' 
-#' Filter noise from a raster stack by decomposing into principal components 
+#' Filter noise from a RasterStack by decomposing into principal components 
 #' and subsequent reconstruction using only a subset of components
 #' 
-#' @param data raster stack to be filtered
+#' @param data RasterStack to be filtered
 #' @param k number of components to be kept for reconstruction 
 #' (set this to NULL if you supply \code{expl.var})
 #' @param expl.var  minimum amount of variance to be kept after reconstruction
@@ -12,7 +12,11 @@
 #' geographically weighted using the cosine of latitude during decomposition 
 #' (only important for lat/lon data)
 #' @param ... additional arguments passed to \code{\link{princomp}}
-#' @return the denoised raster stack object
+#' 
+#' @return a denoised RasterStack
+#' 
+#' @seealso
+#' \code{\link{anomalize}}, \code{\link{deseason}}
 #' 
 #' @export denoise
 #' 

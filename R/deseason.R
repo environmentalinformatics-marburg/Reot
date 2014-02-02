@@ -5,9 +5,14 @@
 #' suitable seasonal window. E. g. to create monthly anomalies of a 
 #' raster stack of 12 layers per year, use \code{cycle.window = 12}.
 #' 
-#' @param data a raster stack
+#' @param data a RasterStack
 #' @param cycle.window the window for the creation of the anomalies
 #' @param ... currently not used
+#' 
+#' @return a deseasoned RasterStack
+#' 
+#' @seealso
+#' \code{\link{anomalize}}, \code{\link{denoise}}
 #' 
 #' @export deseason
 #' 

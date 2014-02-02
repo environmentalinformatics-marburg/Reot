@@ -1,18 +1,18 @@
-#' Create lagged raster stacks
+#' Create lagged RasterStacks
 #' 
 #' @description
-#' The function is used to produce lagged raster stacks. The second is cut
+#' The function is used to produce lagged RasterStacks. The second is cut
 #' from the beginning, the first from the tail to ensure equal output lengths
 #' (provided that input lengths were equal).
 #' 
-#' @param data.pred a raster stack (to be cut from tail)
-#' @param data.resp a raster stack (to be cut from beginning)
+#' @param data.pred a RasterStack (to be cut from tail)
+#' @param data.resp a RasterStack (to be cut from beginning)
 #' @param lag the desired lag (in the native frequency of the stacks)
-#' @param freq the frequency of the raster stacks
+#' @param freq the frequency of the RasterStacks
 #' @param ... currently not used
 #' 
 #' @return
-#' a list with the two raster stacks lagged by \code{lag}
+#' a list with the two RasterStacks lagged by \code{lag}
 #' 
 #' @examples
 #' data(pacificSST)

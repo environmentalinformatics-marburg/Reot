@@ -5,7 +5,7 @@
 denoise(data, k = NULL, expl.var = 0.95, weighted = TRUE, ...)
 }
 \arguments{
-  \item{data}{raster stack to be filtered}
+  \item{data}{RasterStack to be filtered}
 
   \item{k}{number of components to be kept for
   reconstruction (set this to NULL if you supply
@@ -23,10 +23,10 @@ denoise(data, k = NULL, expl.var = 0.95, weighted = TRUE, ...)
   \code{\link{princomp}}}
 }
 \value{
-the denoised raster stack object
+a denoised RasterStack
 }
 \description{
-Filter noise from a raster stack by decomposing into
+Filter noise from a RasterStack by decomposing into
 principal components and subsequent reconstruction using
 only a subset of components
 }
@@ -38,5 +38,8 @@ opar <- par(mfrow = c(1,2))
 plot(australiaGPCP[[1]], main = "original")
 plot(aus.dns[[1]], main = "denoised")
 par(opar)
+}
+\seealso{
+\code{\link{anomalize}}, \code{\link{deseason}}
 }
 

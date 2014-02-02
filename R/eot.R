@@ -1,11 +1,11 @@
-#' EOT analysis of a predictor and (optionally) a response raster stack
+#' EOT analysis of a predictor and (optionally) a response RasterStack
 #' 
 #' @description
 #' Calculate a given number of EOT modes either internally or between 
-#' raster stacks.
+#' RasterStacks.
 #' 
 #' @param pred a ratser stack used as predictor
-#' @param resp a raster stack used as response. If \code{resp} is \code{NULL},
+#' @param resp a RasterStack used as response. If \code{resp} is \code{NULL},
 #' \code{pred} is used as \code{resp}
 #' @param n the number of EOT modes to calculate
 #' @param standardised logical. If \code{FALSE} the calculated r-squared values 

@@ -1,14 +1,17 @@
-#' Shorten a raster stack
+#' Shorten a RasterStack
 #' 
 #' @description
-#' The function cuts a specified number of layers off a raster stack in 
-#' order to create lagged raster stacks.
+#' The function cuts a specified number of layers off a RrasterStack in 
+#' order to create lagged RasterStacks.
 #' 
-#' @param data a raster stack
+#' @param data a RasterStack
 #' @param tail logical. If \code{TRUE} the layers will be taken away from
 #' the end of the stack. If \code{FALSE} layers will be taken away from 
 #' the beginning.
 #' @param lag the number of layers to take away.
+#' 
+#' @return a RasterStack shortened by \code{lag} either from the 
+#' beginning or the end, depending on the specification of \code{tail}
 #' 
 #' @examples
 #' data(australiaGPCP)

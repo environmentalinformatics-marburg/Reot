@@ -5,12 +5,15 @@
 deseason(data, cycle.window = 12, ...)
 }
 \arguments{
-  \item{data}{a raster stack}
+  \item{data}{a RasterStack}
 
   \item{cycle.window}{the window for the creation of the
   anomalies}
 
   \item{...}{currently not used}
+}
+\value{
+a deseasoned RasterStack
 }
 \description{
 The function calculates anomalies of a RasterStack by
@@ -27,5 +30,8 @@ opar <- par(mfrow = c(1,2))
 plot(australiaGPCP[[1]], main = "original")
 plot(aus.dsn[[1]], main = "deseasoned")
 par(opar)
+}
+\seealso{
+\code{\link{anomalize}}, \code{\link{denoise}}
 }
 

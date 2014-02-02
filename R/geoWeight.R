@@ -4,7 +4,9 @@
 #' The function performs geographic weighting using the cosine of latitude 
 #' to compensate for area distortion of non-projected lat/lon data
 #' 
-#' @param x a raster* object
+#' @param x a Raster* object
+#' 
+#' @return a weighted Raster* object
 #' 
 #' @export geoWeight
 #' 

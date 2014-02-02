@@ -10,12 +10,16 @@ nEot4Var(eot.obj, var = 0.9)
   \item{var}{the minimum amount of variance explained by
   the modes}
 }
+\value{
+an integer denoting the number of EOTs needed to explain
+\code{var}
+}
 \description{
 The function identifies the number of modes needed to
 explain a certain amount of variance within the response
 series.
 }
-\details{
+\note{
 This is a post-hoc function like \code{\link{plotEot}} and
 \code{\link{plotLocations}}. This means that it needs an
 object which was created with \code{\link{eot}}. Depending

@@ -10,8 +10,17 @@ covWeight(y, weights, ...)
 
   \item{weights}{a numeric vector of weights. For lat/lon
   data this can be produced with \code{\link{getWeights}}}
+
+  \item{...}{additional arguments passed to
+  \code{\link{cov.wt}}}
+}
+\value{
+see \code{\link{cov.wt}}
 }
 \description{
 Create a weighted covariance matrix
+}
+\seealso{
+\code{\link{cov.wt}}
 }
 

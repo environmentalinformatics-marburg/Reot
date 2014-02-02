@@ -1,16 +1,21 @@
 #' Create an anomaly RasterStack 
 #' 
 #' @description
-#' The function creates an anomaly raster stack either based on the
-#' overall mean of the original stack, or a supplied reference raster.
+#' The function creates an anomaly RasterStack either based on the
+#' overall mean of the original stack, or a supplied reference RasterLayer.
 #' For the creation of seasonal anomalies use \code{\link{deseason}}.
 #' 
-#' @param x a raster stack
-#' @param reference an optional raszer layer to be used as the reference 
+#' @param x a RasterStack
+#' @param reference an optional RasterLayer to be used as the reference 
 #' @param ... additional arguments passed to \code{\link{calc}} 
 #' which is used under the hood
 #' 
-#' @export anomalise
+#' @return an anomaly RasterStack
+#' 
+#' @seealso
+#' \code{\link{deseason}}, \code{\link{denoise}}, \code{\link{calc}}
+#' 
+#' @export anomalize
 #' 
 #' @examples
 #' data(australiaGPCP)

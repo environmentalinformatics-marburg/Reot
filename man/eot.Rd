@@ -1,6 +1,6 @@
 \name{eot}
 \alias{eot}
-\title{EOT analysis of a predictor and (optionally) a response raster stack}
+\title{EOT analysis of a predictor and (optionally) a response RasterStack}
 \usage{
 eot(pred, resp = NULL, n = 1, standardised = TRUE, write.out = FALSE,
   path.out = ".", names.out = NULL, reduce.both = FALSE, type = c("rsq",
@@ -9,7 +9,7 @@ eot(pred, resp = NULL, n = 1, standardised = TRUE, write.out = FALSE,
 \arguments{
   \item{pred}{a ratser stack used as predictor}
 
-  \item{resp}{a raster stack used as response. If
+  \item{resp}{a RasterStack used as response. If
   \code{resp} is \code{NULL}, \code{pred} is used as
   \code{resp}}
 
@@ -76,7 +76,7 @@ both fields are reduced after the first EOT is found, these
 }
 \description{
 Calculate a given number of EOT modes either internally or
-between raster stacks.
+between RasterStacks.
 }
 \details{
 For a detailed description of the EOT algorithm and the

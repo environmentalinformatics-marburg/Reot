@@ -98,3 +98,21 @@ NULL
 #' International Journal of Remote Sensing, Volume 26, Isuue 20, pp. 4485 - 4498\cr
 #' \url{http://www.tandfonline.com/doi/abs/10.1080/01431160500168686#.UuzaSx_PE24}
 NULL
+#' 
+#' @docType data 
+#' @name modisKiliNDVI
+#' @title Monthly MODIS NDVI images for Mt. Kilimanjaro
+#' @description Monthly MODIS Aqua MYD13Q1 NDVI images for the Mt. Kilimanjaro region from 2003/01 to 2006/12
+#' @format a RasterBrick with the following attributes\cr
+#' \cr
+#' dimensions  : 271, 345, 93495, 48  (nrow, ncol, ncell, nlayers)\cr
+#' resolution  : 0.00215, 0.00215  (x, y)\cr
+#' extent      : 36.98824, 37.72999, -3.411286, -2.828636  (xmin, xmax, ymin, ymax)\cr
+#' coord. ref. : +proj=longlat +ellps=WGS84\cr 
+#' @references
+#' MODIS/Aqua Vegetation Indices 16-Day L3 Global 250m SIN Grid, MYD13Q1 V005.\cr
+#' NASA Land Processes Distributed Active Archive Center (LP DAAC) 2006\cr
+#' Sioux Falls, South Dakota, USA\cr
+#' @source
+#' \url{https://lpdaac.usgs.gov/}
+NULL

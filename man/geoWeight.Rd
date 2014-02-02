@@ -5,7 +5,10 @@
 geoWeight(x)
 }
 \arguments{
-  \item{x}{a raster* object}
+  \item{x}{a Raster* object}
+}
+\value{
+a weighted Raster* object
 }
 \description{
 The function performs geographic weighting using the cosine
