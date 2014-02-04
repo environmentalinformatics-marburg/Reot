@@ -18,7 +18,7 @@
 #' plotLocations(modes)
 plotLocations <- function(eot.obj, ...) {
   
-  library(littaiceExtra)
+  library(latticeExtra)
   library(gridExtra)
   library(mapdata)
   
