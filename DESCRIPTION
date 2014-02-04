@@ -7,5 +7,5 @@ Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 Description: A collection of functions to facilitate empirical orthogonal teleconnection analysis.
 License: GNU GPL (>=3)
-Depends: Rcpp (>= 0.10.3), mapdata, maps, gridExtra, latticeExtra, raster, foreach
+Depends: Rcpp (>= 0.10.3), raster, foreach
 LinkingTo: Rcpp
