@@ -17,7 +17,7 @@ precipitation data for Australia from 1982/01 to 2010/12
 }
 \references{
 The Version-2 Global Precipitation Climatology Project
-(GPCP) Monthly Precipitation Analysis (1979–Present)\cr
+(GPCP) Monthly Precipitation Analysis (1979 - Present)\cr
 Adler et al. (2003)\cr Journal of Hydrometeorology, Volume
 4, Issue 6, pp. 1147 - 1167\cr
 \url{http://dx.doi.org/10.1175/1525-7541(2003)004<1147:TVGPCP>2.0.CO;2}

@@ -18,6 +18,10 @@
 #' plotLocations(modes)
 plotLocations <- function(eot.obj, ...) {
   
+  library(latticeExtra)
+  library(gridExtra)
+  library(mapdata)
+  
   ### plot function
   loc.df <- as.data.frame(do.call("rbind", 
                                   lapply(seq(eot.obj), function(i) {

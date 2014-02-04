@@ -1,11 +1,11 @@
 Package: Reot
 Type: Package
 Title: Empirical Orthogonal Teleconnections in R
-Version: 0.0.1
-Date: 2014-02-01
+Version: 0.0.2
+Date: 2014-02-02
 Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 Description: A collection of functions to facilitate empirical orthogonal teleconnection analysis.
 License: GNU GPL (>=3)
-Depends: Rcpp (>= 0.10.3), mapdata, maps, gridExtra, latticeExtra, raster, foreach
+Depends: Rcpp (>= 0.10.3), raster, foreach
 LinkingTo: Rcpp

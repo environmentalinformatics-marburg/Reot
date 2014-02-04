@@ -59,6 +59,10 @@ plotEot <- function(eot.obj,
                     ...)
 {
   
+  library(latticeExtra)
+  library(gridExtra)
+  library(mapdata)
+  
   p.prm <- paste(pred.prm, "predictor", sep = ".")
   r.prm <- paste(resp.prm, "response", sep = ".")
   
