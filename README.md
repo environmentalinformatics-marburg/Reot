@@ -24,7 +24,7 @@ install and load the [devtools](http://cran.r-project.org/web/packages/devtools/
 For the stable release version of **Reot** use
 
 
-```r
+```S
 install_github("Reot", "environmentalinformatics-marburg")
 ```
 
@@ -32,7 +32,7 @@ install_github("Reot", "environmentalinformatics-marburg")
 To install the development version use
 
 
-```r
+```S
 install_github("Reot", "environmentalinformatics-marburg", ref = "develop")
 ```
 
