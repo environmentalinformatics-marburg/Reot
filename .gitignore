@@ -6,4 +6,4 @@ src/*.so
 src/*.dll
 README.html
 README.Rmd
-
+figure/*
