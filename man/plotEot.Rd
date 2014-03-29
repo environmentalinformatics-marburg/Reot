@@ -42,7 +42,7 @@ plotEot(eot.obj, eot = 1, pred.prm = "rsq", resp.prm = "r",
   the predictor and response fields}
 
   \item{...}{further arguments to be passed to
-  \code{\link{spplot}}}
+  \code{\link[raster]{spplot}}}
 }
 \description{
 This is the standard plotting routine for the results of

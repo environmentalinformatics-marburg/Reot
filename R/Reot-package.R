@@ -15,7 +15,7 @@
 #' @keywords package
 #' @references 
 #' Empirical Orthogonal Teleconnections\cr
-#' H. M. van den Dool, S. Saha, Å. Johansson (2000)\cr
+#' H. M. van den Dool, S. Saha, A. Johansson (2000)\cr
 #' Journal of Climate, Volume 13, Issue 8 (April 2000) pp. 1421 - 1435\cr
 #' 
 #' Empirical methods in short-term climate prediction\cr
@@ -23,7 +23,7 @@
 #' Oxford University Press, Oxford, New York (2007)\cr
 #' @seealso \pkg{Reot} is built upon raster* classes from the \code{\link{raster-package}}.
 #' Please see their documentation for data preparation etc.
-#' @import Rcpp raster foreach
+#' @import Rcpp raster foreach gridExtra latticeExtra mapdata scales
 #' 
 NULL
 #' 

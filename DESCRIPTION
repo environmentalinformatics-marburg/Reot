@@ -7,7 +7,7 @@ Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 Description: A collection of functions to facilitate empirical orthogonal
     teleconnection analysis.
-License: GNU GPL (>= 3)
+License: GPL (>= 3)
 Depends:
     Rcpp (>= 0.10.3),
     raster,
@@ -31,3 +31,8 @@ Collate:
     'nEot4Var.R'
     'plotEot.R'
     'plotLocations.R'
+Suggests: 
+  latticeExtra,
+  gridExtra,
+  mapdata,
+  scales

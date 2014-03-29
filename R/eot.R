@@ -71,7 +71,7 @@
 #' 
 #' @references 
 #' \bold{Empirical Orthogonal Teleconnections}\cr
-#' H. M. van den Dool, S. Saha, Å Johansson (2000)\cr
+#' H. M. van den Dool, S. Saha, A. Johansson (2000)\cr
 #' Journal of Climate, Volume 13, Issue 8, pp. 1421-1435\cr
 #' \url{http://journals.ametsoc.org/doi/abs/10.1175/1520-0442%282000%29013%3C1421%3AEOT%3E2.0.CO%3B2
 #' }
