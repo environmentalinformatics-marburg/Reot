@@ -2,7 +2,7 @@
 \alias{cutStack}
 \title{Shorten a RasterStack}
 \usage{
-cutStack(data, tail = TRUE, lag = NULL, ...)
+cutStack(data, tail = TRUE, lag = NULL)
 }
 \arguments{
   \item{data}{a RasterStack}

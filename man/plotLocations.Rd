@@ -7,6 +7,9 @@ plotLocations(eot.obj, ...)
 \arguments{
   \item{eot.obj}{an EOT object as returned by
   \code{\link{eot}}}
+
+  \item{...}{further arguments to be passed to
+  \code{\link{spplot}}}
 }
 \description{
 Simple plotting routine to visualise the location of all

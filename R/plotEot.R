@@ -23,6 +23,7 @@
 #' "long" format
 #' @param clr an (optional) color palette for displaying of the 
 #' predictor and response fields
+#' @param ... further arguments to be passed to \code{\link{spplot}}
 #' 
 #' @examples
 #' data(vdendool)

@@ -23,6 +23,8 @@
 #' Oxford University Press, Oxford, New York (2007)\cr
 #' @seealso \pkg{Reot} is built upon raster* classes from the \code{\link{raster-package}}.
 #' Please see their documentation for data preparation etc.
+#' @import Rcpp raster foreach
+#' 
 NULL
 #' 
 #' @docType data 

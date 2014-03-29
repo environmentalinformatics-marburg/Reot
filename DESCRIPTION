@@ -5,7 +5,29 @@ Version: 0.1.0
 Date: 2014-02-04
 Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
-Description: A collection of functions to facilitate empirical orthogonal teleconnection analysis.
-License: GNU GPL (>=3)
-Depends: Rcpp (>= 0.10.3), raster, foreach
+Description: A collection of functions to facilitate empirical orthogonal
+    teleconnection analysis.
+License: GNU GPL (>= 3)
+Depends:
+    Rcpp (>= 0.10.3),
+    raster,
+    foreach
 LinkingTo: Rcpp
+Collate:
+    'EotCycle.R'
+    'RcppExports.R'
+    'Reot-package.R'
+    'anomalize.R'
+    'bumpVersion.R'
+    'covWeight.R'
+    'cutStack.R'
+    'deg2rad.R'
+    'denoise.R'
+    'deseason.R'
+    'eot.R'
+    'geoWeight.R'
+    'getWeights.R'
+    'lagalize.R'
+    'nEot4Var.R'
+    'plotEot.R'
+    'plotLocations.R'

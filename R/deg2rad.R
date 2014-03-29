@@ -1,7 +1,10 @@
 #' Convert degrees to radians.
 #' 
-#' @include deg2rad
+#' @export deg2rad
+#' 
+#' @param deg vector of degrees to be converted to radians.
+#' 
 deg2rad <- function(deg) {
   radians <- deg * pi / 180
-  radians
+  return(radians)
 }
