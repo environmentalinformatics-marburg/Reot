@@ -1,5 +1,5 @@
 useDynLib(Reot)
-exportPattern("^[[:alpha:]]+")
+#exportPattern("^[[:alpha:]]+")
 export(EotCycle)
 export(anomalize)
 export(covWeight)

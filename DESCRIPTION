@@ -13,24 +13,6 @@ Depends:
     raster,
     foreach
 LinkingTo: Rcpp
-Collate:
-    'EotCycle.R'
-    'RcppExports.R'
-    'Reot-package.R'
-    'anomalize.R'
-    'bumpVersion.R'
-    'covWeight.R'
-    'cutStack.R'
-    'deg2rad.R'
-    'denoise.R'
-    'deseason.R'
-    'eot.R'
-    'geoWeight.R'
-    'getWeights.R'
-    'lagalize.R'
-    'nEot4Var.R'
-    'plotEot.R'
-    'plotLocations.R'
 Suggests: 
   latticeExtra,
   gridExtra,
