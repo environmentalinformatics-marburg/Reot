@@ -19,6 +19,9 @@ geopotential heights from 1948 to 1998
 }
 \details{
 
+
+NCEP/NCAR reanalysis data of mean seasonal (DJF) 700 mb
+geopotential heights from 1948 to 1998
 }
 \references{
 The NCEP/NCAR 40-year reanalysis project\cr Kalnay et al.

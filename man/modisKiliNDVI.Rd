@@ -17,6 +17,9 @@ Kilimanjaro region from 2003/01 to 2006/12
 }
 \details{
 
+
+Monthly MODIS Aqua MYD13Q1 NDVI images for the Mt.
+Kilimanjaro region from 2003/01 to 2006/12
 }
 \references{
 MODIS/Aqua Vegetation Indices 16-Day L3 Global 250m SIN

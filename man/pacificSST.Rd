@@ -14,6 +14,9 @@ Pacific Ocean from 1982/01 to 2010/12
 }
 \details{
 
+
+Monthly NOAA sea surface temperatures for the tropical
+Pacific Ocean from 1982/01 to 2010/12
 }
 \references{
 Daily High-Resolution-Blended Analyses for Sea Surface

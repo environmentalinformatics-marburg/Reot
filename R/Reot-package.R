@@ -31,6 +31,7 @@ NULL
 #' @name vdendool
 #' @title Mean seasonal (DJF) 700 mb geopotential heights
 #' @description NCEP/NCAR reanalysis data of mean seasonal (DJF) 700 mb geopotential heights from 1948 to 1998
+#' @details NCEP/NCAR reanalysis data of mean seasonal (DJF) 700 mb geopotential heights from 1948 to 1998
 #' @format a RasterBrick with the following attributes\cr
 #' \cr
 #' dimensions  : 14, 36, 504, 50  (nrow, ncol, ncell, nlayers)\cr
@@ -53,6 +54,8 @@ NULL
 #' @title Monthly GPCP precipitation data for Australia
 #' @description Monthly Gridded Precipitation Climatology Project precipitation data 
 #' for Australia from 1982/01 to 2010/12
+#' @details Monthly Gridded Precipitation Climatology Project precipitation data 
+#' for Australia from 1982/01 to 2010/12
 #' @format a RasterBrick with the following attributes\cr
 #' \cr
 #' dimensions  : 12, 20, 240, 348  (nrow, ncol, ncell, nlayers)\cr
@@ -70,6 +73,7 @@ NULL
 #' @name pacificSST
 #' @title Monthly SSTs for the tropical Pacific Ocean
 #' @description Monthly NOAA sea surface temperatures for the tropical Pacific Ocean from 1982/01 to 2010/12
+#' @details Monthly NOAA sea surface temperatures for the tropical Pacific Ocean from 1982/01 to 2010/12
 #' @format a RasterBrick with the following attributes\cr
 #' \cr
 #' dimensions  : 30, 140, 4200, 348  (nrow, ncol, ncell, nlayers)\cr
@@ -88,6 +92,8 @@ NULL
 #' @title Monthly GIMMS NDVI images for Mt. Kilimanjaro
 #' @description Monthly Global Inventory Modelling and Mapping Studies (GIMMS) 
 #' NDVI images for the Mt. Kilimanjaro region from 2003/01 to 2006/12
+#' @details Monthly Global Inventory Modelling and Mapping Studies (GIMMS) 
+#' NDVI images for the Mt. Kilimanjaro region from 2003/01 to 2006/12
 #' @format a RasterBrick with the following attributes\cr
 #' \cr
 #' dimensions  : 8, 10, 80, 48  (nrow, ncol, ncell, nlayers)\cr
@@ -105,6 +111,7 @@ NULL
 #' @name modisKiliNDVI
 #' @title Monthly MODIS NDVI images for Mt. Kilimanjaro
 #' @description Monthly MODIS Aqua MYD13Q1 NDVI images for the Mt. Kilimanjaro region from 2003/01 to 2006/12
+#' @details Monthly MODIS Aqua MYD13Q1 NDVI images for the Mt. Kilimanjaro region from 2003/01 to 2006/12
 #' @format a RasterBrick with the following attributes\cr
 #' \cr
 #' dimensions  : 271, 345, 93495, 48  (nrow, ncol, ncell, nlayers)\cr
