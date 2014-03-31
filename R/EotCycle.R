@@ -243,6 +243,8 @@ EotCycle <- function(pred,
                   paste(path.out, df.name, sep = "/"), 
                   row.names = FALSE, append = TRUE, sep = ",")
       
+      a <- b <- NULL
+      
       foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, 
                     rst.pred.intercept, rst.pred.slp, rst.pred.p, 
                     brck.pred.resids, rst.resp.r, rst.resp.rsq, 
