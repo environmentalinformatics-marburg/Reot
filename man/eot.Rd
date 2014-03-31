@@ -104,14 +104,12 @@ another geographic field.
 ### a single field
 data(vdendool)
 
-# claculate 4 leading modes
-modes <- eot(pred = vdendool, resp = NULL, n = 4, reduce.both = FALSE,
+# claculate 2 leading modes
+modes <- eot(pred = vdendool, resp = NULL, n = 2, reduce.both = FALSE,
              standardised = FALSE, print.console = TRUE)
 
 plotEot(modes, eot = 1, show.eot.loc = TRUE)
 plotEot(modes, eot = 2, show.eot.loc = TRUE)
-plotEot(modes, eot = 3, show.eot.loc = TRUE)
-plotEot(modes, eot = 4, show.eot.loc = TRUE)
 }
 \references{
 \bold{Empirical Orthogonal Teleconnections}\cr H. M. van
