@@ -15,6 +15,10 @@ Monthly Global Inventory Modelling and Mapping Studies
 }
 \details{
 
+
+Monthly Global Inventory Modelling and Mapping Studies
+(GIMMS) NDVI images for the Mt. Kilimanjaro region from
+2003/01 to 2006/12
 }
 \references{
 An extended AVHRR 8 km NDVI dataset compatible with MODIS

@@ -5,6 +5,7 @@
 #' points colour coded according to eot mode (1 to n).
 #' 
 #' @param eot.obj an EOT object as returned by \code{\link{eot}}
+#' @param ... further arguments to be passed to \code{\link{spplot}}
 #' 
 #' @export plotLocations
 #' 
@@ -42,7 +43,7 @@ plotLocations <- function(eot.obj, ...) {
                      panel.levelplot(...)
                      panel.polygon(mm$x, mm$y, lwd = 0.5, 
                                    border = "grey20", col = "grey70")
-                   }) 
+                   }, ...) 
   
   clrs.hcl <- function(n) {
     hcl(h = seq(270, 0, length.out = n), 
@@ -91,7 +92,7 @@ plotLocations <- function(eot.obj, ...) {
     pushViewport(vp)
     
     grid.circle(gp = gpar(fill = clrs[i], 
-                          col = "black", ...))
+                          col = "black"))
     
     upViewport()
     

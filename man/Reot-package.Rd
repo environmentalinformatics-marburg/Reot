@@ -18,7 +18,7 @@ Appelhans \email{tim.appelhans@gmail.com}
 }
 \references{
 Empirical Orthogonal Teleconnections\cr H. M. van den Dool,
-S. Saha, Å. Johansson (2000)\cr Journal of Climate, Volume
+S. Saha, A. Johansson (2000)\cr Journal of Climate, Volume
 13, Issue 8 (April 2000) pp. 1421 - 1435\cr
 
 Empirical methods in short-term climate prediction\cr H. M.

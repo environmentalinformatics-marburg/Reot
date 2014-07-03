@@ -24,8 +24,7 @@
 #' @export cutStack
 cutStack <- function(data, 
                      tail = TRUE,
-                     lag = NULL, 
-                     ...) {
+                     lag = NULL) {
   
   # Return unmodified RasterStack if lag == NULL
   if (is.null(lag)) {

@@ -21,12 +21,12 @@
 #' @export denoise
 #' 
 #' @examples
-#' data("australiaGPCP")
-#' aus.dns <- denoise(australiaGPCP, expl.var = 0.8)
+#' data("vdendool")
+#' vdd.dns <- denoise(vdendool, expl.var = 0.8)
 #' 
 #' opar <- par(mfrow = c(1,2))
-#' plot(australiaGPCP[[1]], main = "original")
-#' plot(aus.dns[[1]], main = "denoised")
+#' plot(vdendool[[1]], main = "original")
+#' plot(vdd.dns[[1]], main = "denoised")
 #' par(opar)
 denoise <- function(data,
                     k = NULL,

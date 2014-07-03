@@ -1,4 +1,28 @@
-#' Calculates a single EOT and is controlled by the main eot() function
+#' Calculate a single EOT
+#' 
+#' @description
+#' EotCycle() calculates a single EOT and is controlled by the main eot() function
+#' 
+#' @param pred a ratser stack used as predictor
+#' @param resp a RasterStack used as response. If \code{resp} is \code{NULL},
+#' \code{pred} is used as \code{resp}
+#' @param resp.eq.pred logical. Whether predictor and response stack are the same
+#' @param n the number of EOT modes to calculate
+#' @param standardised logical. If \code{FALSE} the calculated r-squared values 
+#' will be multiplied by the variance
+#' @param orig.var original variance of the response domain
+#' @param write.out logical. If \code{TRUE} results will be written to disk 
+#' using \code{path.out}
+#' @param path.out the file path for writing results if \code{write.out} is \code{TRUE}.
+#' Defaults to current working directory
+#' @param names.out optional prefix to be used for naming of results if 
+#' \code{write.out} is \code{TRUE}
+#' @param type the type of the link function. Defaults to \code{'rsq'} as in original
+#' proposed method from \cite{Dool2000}. If set to \code{'ioa'} index of agreement is
+#' used instead
+#' @param print.console logical. If \code{TRUE} some details about the 
+#' calculation process will be output to the console
+#' @param ... not used at the moment
 #' 
 #' @export EotCycle
 EotCycle <- function(pred, 
@@ -218,6 +242,8 @@ EotCycle <- function(pred,
       write.table(location.df, col.names = FALSE,
                   paste(path.out, df.name, sep = "/"), 
                   row.names = FALSE, append = TRUE, sep = ",")
+      
+      a <- b <- NULL
       
       foreach(a = c(rst.pred.r, rst.pred.rsq, rst.pred.rsq.sums, 
                     rst.pred.intercept, rst.pred.slp, rst.pred.p, 

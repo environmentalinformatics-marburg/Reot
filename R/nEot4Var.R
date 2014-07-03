@@ -20,10 +20,11 @@
 #' @examples
 #' data(vdendool)
 #' 
-#' modes <- eot(pred = vdendool, resp = NULL, n = 8, reduce.both = FALSE,
+#' modes <- eot(pred = vdendool, resp = NULL, n = 5, reduce.both = FALSE,
 #'              standardised = FALSE, print.console = TRUE)
 #'              
-#' nEot4Var(modes, 0.65)
+#' ### How many modes are needed to explain 40% of variance?              
+#' nEot4Var(modes, 0.4)
 nEot4Var <- function(eot.obj, var = 0.9) {
   expl.var <- sapply(seq(eot.obj), function(i) {
     eot.obj[[i]]$exp.var

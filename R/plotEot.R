@@ -23,12 +23,13 @@
 #' "long" format
 #' @param clr an (optional) color palette for displaying of the 
 #' predictor and response fields
+#' @param ... further arguments to be passed to \code{\link[raster]{spplot}}
 #' 
 #' @examples
 #' data(vdendool)
 #' 
-#' # claculate 4 leading modes
-#' modes <- eot(pred = vdendool, resp = NULL, n = 4, reduce.both = FALSE,
+#' # claculate 2 leading modes
+#' modes <- eot(pred = vdendool, resp = NULL, n = 2, reduce.both = FALSE,
 #'              standardised = FALSE, print.console = TRUE)
 #'
 #' # default settings 

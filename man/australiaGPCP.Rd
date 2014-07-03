@@ -14,6 +14,9 @@ precipitation data for Australia from 1982/01 to 2010/12
 }
 \details{
 
+
+Monthly Gridded Precipitation Climatology Project
+precipitation data for Australia from 1982/01 to 2010/12
 }
 \references{
 The Version-2 Global Precipitation Climatology Project
