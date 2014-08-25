@@ -5,8 +5,8 @@ Version: 0.1.1
 Date: 2014-08-25
 Author: Tim Appelhans, Florian Detsch, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
-Description: A collection of functions to facilitate empirical orthogonal
-    teleconnection analysis.
+Description: Note that 'Reot' is deprecated. 
+    Please use package 'remote' instead.
 License: GPL (>= 3)
 Depends:
     Rcpp (>= 0.10.3),
